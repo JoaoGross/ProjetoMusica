@@ -31,7 +31,7 @@ public class ConnectionFactory {
 		String senhaUsuario = "";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
-			//3: PrÈ compila o comando
+			//3: Pr√© compila o comando
 			PreparedStatement ps = c.prepareStatement(sql);
 			//4: Executa o comando e guarda
 			//o resultado em um ResultSet
@@ -43,6 +43,53 @@ public class ConnectionFactory {
 			e.printStackTrace();
 		}
 		return senhaUsuario;
+	}
+	
+	public static void salvarUsuario (String nomeUsuario, String senhaUsuario){
+		String query = "";
+
+		ConnectionFactory factory = new ConnectionFactory();
+		try (Connection c = factory.obterConexao()){
+			PreparedStatement ps = c.prepareStatement(query);
+			ps.setString(1, nomeUsuario);
+			ps.setString(2, senhaUsuario);
+			ps.execute();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static int pegarIdUsuario(String nomeUsuario) {
+		String query = "";
+		int IdUsuario = 0;
+		ConnectionFactory factory = new ConnectionFactory();
+		try (Connection c = factory.obterConexao()){
+			PreparedStatement ps = c.prepareStatement(query);
+			ps.setString(1, nomeUsuario);
+			ResultSet rs = ps.executeQuery();
+			IdUsuario = rs.getInt(1);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return IdUsuario;
+	}
+	
+	public static void guardarGeneroPreferido(int idGenero, int idUsuario) {
+		String query = "";
+
+		ConnectionFactory factory = new ConnectionFactory();
+		try (Connection c = factory.obterConexao()){
+			PreparedStatement ps = c.prepareStatement(query);
+			ps.setInt(1, idGenero);
+			ps.setInt(2, idUsuario);
+			ps.execute();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static ArrayList<Musica> pegarNaoAvaliadas(int id_usuario, int id_genero){
@@ -116,7 +163,7 @@ insert into tb_musicas (nome_musica,Id_genero) values ("All Blues", "5");
 insert into tb_musicas (nome_musica,Id_genero) values ("ACDC HELL", "3");
 insert into tb_musicas (nome_musica,Id_genero) values ("Blue River", "5");
 
-insert into tb_usuario (Nome,Senha,FK_Id_generoPreferio) values ("Jo„ozinho", "12345","5");
+insert into tb_usuario (Nome,Senha,FK_Id_generoPreferio) values ("Jo√£ozinho", "12345","5");
 
 insert into tb_avaliacoes (Id_usuario,Id_musica,nota_musica) values ("1", "1","5");
 	 */

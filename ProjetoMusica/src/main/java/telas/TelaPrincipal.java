@@ -167,15 +167,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtTelaGenerosPreferidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaGenerosPreferidosActionPerformed
-        new TelaGeneros().setVisible(true);
-        dispose();
+        new TelaGenerosPreferidos().setVisible(true);
         
     }//GEN-LAST:event_BtTelaGenerosPreferidosActionPerformed
 
     private void BtTelaAvaliarMusicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaAvaliarMusicasActionPerformed
         //abre tela Avaliar Musicas
-        new TelaAvaliar().setVisible(true);
-        dispose();
+        new TelaAvaliarMusicas().setVisible(true);
     }//GEN-LAST:event_BtTelaAvaliarMusicasActionPerformed
 
     private void BtSairProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSairProgramaActionPerformed
@@ -185,9 +183,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtSairProgramaActionPerformed
     }
     private void BtTelaRecomendacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaRecomendacoesActionPerformed
-        //abre tela Recomendacoeses
+        //abre tela Recomendações
         new TelaRecomendacoes().setVisible(true);
-        dispose();
     }//GEN-LAST:event_BtTelaRecomendacoesActionPerformed
 
     /**

@@ -184,9 +184,8 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoCadastrarActionPerformed
 
     private void BtVoltarTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarTelaLoginActionPerformed
-        //fecha a tela de TelaCadastro e volta para tela principal
         new TelaLogin().setVisible(true);
-        this.dispose();    
+        dispose();     
         
     }//GEN-LAST:event_BtVoltarTelaLoginActionPerformed
 

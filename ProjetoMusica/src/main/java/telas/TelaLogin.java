@@ -141,7 +141,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void BtTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaCadastroActionPerformed
 //abre tela para cadastro de usuario
         new TelaCadastro().setVisible(true);
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_BtTelaCadastroActionPerformed
 
     private void CampoInserirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoInserirUsuarioActionPerformed

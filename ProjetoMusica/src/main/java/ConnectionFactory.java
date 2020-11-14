@@ -3,17 +3,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
 public class ConnectionFactory {
 	private String usuario = "root";
-	private String senha = "";
-	private String host = "localhost";
+	private String senha = "icr.root8520";
+	private String host = "127.0.0.1";
 	private String porta = "3306";
-	private String bd = "";
+	private String bd = "projeto";
 
 	public Connection obterConexao (){
 		try{
 			Connection c = DriverManager.getConnection(
-					"jdbc:mysql://" + host + ":" + porta + "/" + bd,
+					"jdbc:mysql://" + host + ":" + porta + "/" + bd  + "?useTimezone=true&serverTimezone=UTC",
 					usuario,
 					senha
 					);

@@ -168,12 +168,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void BtTelaGenerosPreferidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaGenerosPreferidosActionPerformed
         new TelaGenerosPreferidos().setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_BtTelaGenerosPreferidosActionPerformed
 
     private void BtTelaAvaliarMusicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaAvaliarMusicasActionPerformed
         //abre tela Avaliar Musicas
         new TelaAvaliarMusicas().setVisible(true);
+        dispose();
     }//GEN-LAST:event_BtTelaAvaliarMusicasActionPerformed
 
     private void BtSairProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSairProgramaActionPerformed
@@ -185,6 +187,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void BtTelaRecomendacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaRecomendacoesActionPerformed
         //abre tela Recomendações
         new TelaRecomendacoes().setVisible(true);
+        dispose();
     }//GEN-LAST:event_BtTelaRecomendacoesActionPerformed
 
     /**

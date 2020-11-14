@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Usuario {
-	int Id;
+	int IdUsuario;
 	String nomeUsuario;
 	String senha;
 	ArrayList<GeneroMusical> generosPreferidos;
@@ -32,7 +32,7 @@ public class Usuario {
 	public ArrayList<Musica> recomendar(){
 		ArrayList<Musica> recomendacoes = new ArrayList<>();
 		for(int i = 0; i<= generosPreferidos.size(); i++) {
-			recomendacoes.addAll(ConnectionFactory.pegarNaoAvaliadas(Id, generosPreferidos.get(i).getId()));
+			recomendacoes.addAll(ConnectionFactory.pegarNaoAvaliadas(IdUsuario, generosPreferidos.get(i).getId()));
 		}
 		
 		return recomendacoes;

@@ -167,13 +167,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtTelaGenerosPreferidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaGenerosPreferidosActionPerformed
-        new GenerosPreferidos().setVisible(true);
+        new TelaGeneros().setVisible(true);
         
     }//GEN-LAST:event_BtTelaGenerosPreferidosActionPerformed
 
     private void BtTelaAvaliarMusicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaAvaliarMusicasActionPerformed
         //abre tela Avaliar Musicas
-        new AvaliarMusicas().setVisible(true);
+        new TelaAvaliar().setVisible(true);
     }//GEN-LAST:event_BtTelaAvaliarMusicasActionPerformed
 
     private void BtSairProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSairProgramaActionPerformed

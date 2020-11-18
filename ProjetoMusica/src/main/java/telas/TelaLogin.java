@@ -3,7 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package telas;
+package sistemaDeRecomendacao.telas;
+
+import javax.swing.JOptionPane;
+
+import sistemaDeRecomendacao.ConnectionFactory;
+import sistemaDeRecomendacao.Usuario;
 
 /**
  *
@@ -11,9 +16,6 @@ package telas;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form novo
-     */
     public TelaLogin() {
         initComponents();
         //bloqueia o maximizar da janela
@@ -53,7 +55,7 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         BtTelaCadastro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        BtTelaCadastro.setText("Não tem cadastro?");
+        BtTelaCadastro.setText("NÃ£o tem cadastro?");
         BtTelaCadastro.setToolTipText("Cadastre aqui");
         BtTelaCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -133,11 +135,24 @@ public class TelaLogin extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void BtEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtEntrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtEntrarActionPerformed
+    private void BtEntrarActionPerformed(java.awt.event.ActionEvent evt) {
+    	String login = CampoInserirUsuario.getText();
+    	String senha = new String(CampoInserirSenha.getPassword());
+
+    	String dbSenha = ConnectionFactory.pegarSenha(login);
+
+    	if(senha.equals(dbSenha)) {
+    		Usuario usuario = new Usuario(login, senha);
+    		TelaPrincipal telaPrincipal = new TelaPrincipal();
+    		telaPrincipal.setVisible(true);
+    		this.dispose();
+    	}else {
+    		JOptionPane.showMessageDialog(null, "Usuário inválido");
+    	}
+
+    }
 
     private void BtTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaCadastroActionPerformed
 //abre tela para cadastro de usuario

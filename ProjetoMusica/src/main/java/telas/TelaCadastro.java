@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package telas;
+package sistemaDeRecomendacao.telas;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import sistemaDeRecomendacao.ConnectionFactory;
 
 /**
  *
@@ -96,7 +99,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/usuario.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemaDeRecomendacao/Imagens/usuario.png"))); // NOI18N
         jLabel2.setPreferredSize(new java.awt.Dimension(70, 70));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -179,9 +182,22 @@ public class TelaCadastro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CriarUsuarioActionPerformed
 
-    private void BotaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotaoCadastrarActionPerformed
+    private void BotaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
+    	String login = CriarUsuario.getText();
+    	String senha = new String(CampoCriarSenha.getPassword());
+    	String senhaRepetida = new String(CampoRepetirSenha.getPassword());
+    	
+    	if(senha.equals(senhaRepetida)) {
+    		ConnectionFactory.salvarUsuario(login, senha);
+    		JOptionPane.showMessageDialog(null, "Usuario Criado com sucesso");
+    		TelaLogin telaLogin = new TelaLogin();
+    		telaLogin.setVisible(true);
+    		this.dispose();
+    		
+    	}else {
+    		JOptionPane.showMessageDialog(null, "As Senhas nao correspondem");
+    	}
+    }
 
     private void BtVoltarTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarTelaLoginActionPerformed
         new TelaLogin().setVisible(true);

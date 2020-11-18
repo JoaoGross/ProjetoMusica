@@ -1,3 +1,4 @@
+package sistemaDeRecomendacao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -6,8 +7,8 @@ import java.util.ArrayList;
 
 public class ConnectionFactory {
 	private String usuario = "root";
-	private String senha = "icr.root8520";
-	private String host = "127.0.0.1";
+	private String senha = "261199";
+	private String host = "localhost";
 	private String porta = "3306";
 	private String bd = "projeto";
 
@@ -27,8 +28,8 @@ public class ConnectionFactory {
 	}
 
 	public static String pegarSenha (String nomeUsuario){
-		String sql = "SELECT senha FROM tb_usuarios WHERE nome = ?";
-		
+		String sql = "SELECT senha FROM tb_usuario WHERE nome = ?";
+
 		String senhaUsuario = "";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
@@ -38,16 +39,18 @@ public class ConnectionFactory {
 			//o resultado em um ResultSet
 			ps.setString(1, nomeUsuario);
 			ResultSet rs = ps.executeQuery();
-			senhaUsuario = rs.getString(1);
+			if(rs.next()) {
+				senhaUsuario = rs.getString(1);
+			}
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
 		return senhaUsuario;
 	}
-	
+
 	public static void salvarUsuario (String nomeUsuario, String senhaUsuario){
-		String query = "";
+		String query = "insert into tb_usuario(Nome, Senha) values(?, ?);";
 
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
@@ -60,7 +63,7 @@ public class ConnectionFactory {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static int pegarIdUsuario(String nomeUsuario) {
 		String query = "";
 		int IdUsuario = 0;
@@ -76,7 +79,7 @@ public class ConnectionFactory {
 		}
 		return IdUsuario;
 	}
-	
+
 	public static void guardarGeneroPreferido(int idGenero, int idUsuario) {
 		String query = "";
 
@@ -90,16 +93,16 @@ public class ConnectionFactory {
 		catch (Exception e){
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static ArrayList<Musica> pegarNaoAvaliadas(int id_usuario, int id_genero){
 		ArrayList<Musica> musicasNaoAvaliadas = new ArrayList<>();
 		String query = "SELECT m.Id_musica ,m.nome_musica FROM tb_musicas m WHERE m.Id_musica NOT IN (SELECT Id_musica FROM tb_avaliacoes WHERE id_usuario = ?) AND m.Id_genero = ?;";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
 			PreparedStatement ps = c.prepareStatement(query);
-			
+
 			ps.setInt(1, id_usuario);
 			ps.setInt(2, id_genero);
 			ResultSet rs = ps.executeQuery();

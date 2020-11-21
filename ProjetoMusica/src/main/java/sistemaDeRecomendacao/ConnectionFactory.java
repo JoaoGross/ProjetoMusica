@@ -49,14 +49,15 @@ public class ConnectionFactory {
 		return senhaUsuario;
 	}
 
-	public static void salvarUsuario (String nomeUsuario, String senhaUsuario){
-		String query = "insert into tb_usuario(Nome, Senha) values(?, ?);";
+	public static void salvarUsuario (String nomeUsuario, String senhaUsuario, GeneroMusical generoPreferido){
+		String query = "insert into tb_usuario(Nome, Senha, FK_Id_generoPreferio) values(?, ?, ?);";
 
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
 			PreparedStatement ps = c.prepareStatement(query);
 			ps.setString(1, nomeUsuario);
 			ps.setString(2, senhaUsuario);
+			ps.setInt(3, generoPreferido.getId());
 			ps.execute();
 		}
 		catch (Exception e){
@@ -79,21 +80,61 @@ public class ConnectionFactory {
 		}
 		return IdUsuario;
 	}
-
-	public static void guardarGeneroPreferido(int idGenero, int idUsuario) {
+	
+	public static ArrayList<GeneroMusical> pegarGenerosPreferidos(int id_usuario, String nomeUsuario){
+		ArrayList<GeneroMusical> GenerosPreferidos = new ArrayList<>();
 		String query = "";
-
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
 			PreparedStatement ps = c.prepareStatement(query);
-			ps.setInt(1, idGenero);
-			ps.setInt(2, idUsuario);
-			ps.execute();
+
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
+		return GenerosPreferidos;
 
+	}
+	
+	public static GeneroMusical[] obterGeneros() {
+		GeneroMusical[] generos = new GeneroMusical[4];
+		String query = "SELECT nome_genero From tb_genero";
+		ConnectionFactory factory = new ConnectionFactory();
+		try (Connection c = factory.obterConexao()){
+			PreparedStatement ps = c.prepareStatement(query);
+
+			ResultSet rs = ps.executeQuery();
+			int i = 0;
+			while (rs.next()) {
+				String nome = rs.getString("nome_genero");
+				GeneroMusical genero = new GeneroMusical(nome);
+				generos[i] = genero;
+				i++;
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return generos;
+
+	}
+	
+	public static int obterIdGenero(String nomeGenero) {
+		String query = "SELECT Id_genero FROM tb_genero Where nome_genero = ?";
+		int IdGenero = 0;
+		ConnectionFactory factory = new ConnectionFactory();
+		try (Connection c = factory.obterConexao()){
+			PreparedStatement ps = c.prepareStatement(query);
+			ps.setString(1, nomeGenero);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				IdGenero = rs.getInt(1);
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return IdGenero;
 	}
 
 	public static ArrayList<Musica> pegarNaoAvaliadas(int id_usuario, int id_genero){
@@ -171,5 +212,8 @@ insert into tb_usuario (Nome,Senha,FK_Id_generoPreferio) values ("Joãozinho", "
 
 insert into tb_avaliacoes (Id_usuario,Id_musica,nota_musica) values ("1", "1","5");
 	 */
+
+
+	
 
 }

@@ -1,5 +1,9 @@
-package sistemaDeRecomendacao;
+package sistemaDeRecomendacao.model;
 import java.util.ArrayList;
+
+import sistemaDeRecomendacao.bd.ConnectionFactory;
+import sistemaDeRecomendacao.dao.MusicaDAO;
+import sistemaDeRecomendacao.dao.UsuarioDAO;
 
 public class Usuario {
 	int idUsuario;
@@ -9,10 +13,11 @@ public class Usuario {
 	
 	//Login
 	public Usuario(String nomeUsuario, String senha){
+		UsuarioDAO login = new UsuarioDAO();
 		this.nomeUsuario = nomeUsuario;
 		this.senha = senha;
-		this.idUsuario = ConnectionFactory.pegarIdUsuario(nomeUsuario);
-		this.generosPreferidos = ConnectionFactory.pegarGenerosPreferidos(idUsuario, nomeUsuario);
+		this.idUsuario = login.pegarIdUsuario(nomeUsuario);
+		this.generosPreferidos = login.pegarGenerosPreferidos(idUsuario, nomeUsuario);
 	}
 	
 	public String getNome(){
@@ -20,9 +25,10 @@ public class Usuario {
 	}
 	
 	public ArrayList<Musica> recomendar(){
+		MusicaDAO musica = new MusicaDAO();
 		ArrayList<Musica> recomendacoes = new ArrayList<>();
 		for(int i = 0; i<= generosPreferidos.size(); i++) {
-			recomendacoes.addAll(ConnectionFactory.pegarNaoAvaliadas(idUsuario, generosPreferidos.get(i).getId()));
+			recomendacoes.addAll(musica.pegarNaoAvaliadas(idUsuario, generosPreferidos.get(i).getId()));
 		}
 		
 		return recomendacoes;

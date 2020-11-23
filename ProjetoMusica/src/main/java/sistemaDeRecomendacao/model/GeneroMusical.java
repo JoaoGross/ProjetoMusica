@@ -13,7 +13,13 @@ public class GeneroMusical {
 		GeneroMusicalDAO genero = new GeneroMusicalDAO();
 		this.nomeGenero = nome;
 		this.id = id;
-		this.musicas = genero.pegarMusicas();
+//		this.musicas = genero.pegarMusicas();
+	}
+	
+	public GeneroMusical(int id) {
+		GeneroMusicalDAO genero = new GeneroMusicalDAO();
+		this.id = id;
+//		this.nomeGenero = nome;
 	}
 	public int getId() {
 		return id;

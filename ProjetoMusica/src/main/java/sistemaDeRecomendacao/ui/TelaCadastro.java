@@ -202,7 +202,9 @@ public class TelaCadastro extends javax.swing.JFrame {
 		GeneroMusical generoPreferido = (GeneroMusical) generoComboBox.getSelectedItem();
 		if(senha.equals(senhaRepetida)) {
 			UsuarioDAO novoUsuario = new UsuarioDAO();
-			novoUsuario.salvarUsuario(login, senha, generoPreferido);
+			novoUsuario.cadastrarUsuario(login, senha);
+			int IdUsuario = novoUsuario.pegarIdUsuario(login);
+			novoUsuario.cadastrarGenero(IdUsuario, generoPreferido.getId());
 			JOptionPane.showMessageDialog(null, "Usuario Criado com sucesso");
 			TelaLogin telaLogin = new TelaLogin();
 			telaLogin.setVisible(true);

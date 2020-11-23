@@ -10,15 +10,29 @@ import sistemaDeRecomendacao.model.GeneroMusical;
 
 public class UsuarioDAO {
 	
-	public void salvarUsuario (String nomeUsuario, String senhaUsuario, GeneroMusical generoPreferido){
-		String query = "insert into tb_usuario(Nome, Senha, FK_Id_generoPreferio) values(?, ?, ?);";
+	public void cadastrarUsuario (String nomeUsuario, String senhaUsuario){
+		String query = "insert into tb_usuario(username, senha) values(?, ?);";
 
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
 			PreparedStatement ps = c.prepareStatement(query);
 			ps.setString(1, nomeUsuario);
 			ps.setString(2, senhaUsuario);
-			ps.setInt(3, generoPreferido.getId());
+			ps.execute();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void cadastrarGenero (int IdUsuario, int IdGenero){
+		String query = "insert into tb_generoUsuario (FK_Id_userName,FK_Id_generoPreferido) values ( ?, ?);";
+
+		ConnectionFactory factory = new ConnectionFactory();
+		try (Connection c = factory.obterConexao()){
+			PreparedStatement ps = c.prepareStatement(query);
+			ps.setInt(1, IdUsuario);
+			ps.setInt(2, IdGenero);
 			ps.execute();
 		}
 		catch (Exception e){
@@ -27,14 +41,16 @@ public class UsuarioDAO {
 	}
 	
 	public int pegarIdUsuario(String nomeUsuario) {
-		String query = "";
+		String query = "Select Id_usuario from tb_usuario where userName = ?;";
 		int IdUsuario = 0;
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
 			PreparedStatement ps = c.prepareStatement(query);
 			ps.setString(1, nomeUsuario);
 			ResultSet rs = ps.executeQuery();
-			IdUsuario = rs.getInt(1);
+			if(rs.next()) {
+				IdUsuario = rs.getInt(1);
+			}
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -64,17 +80,17 @@ public class UsuarioDAO {
 		return senhaUsuario;
 	}
 	
-	public ArrayList<GeneroMusical> pegarGenerosPreferidos(int id_usuario, String nomeUsuario){
+	public ArrayList<GeneroMusical> pegarGenerosPreferidos(int id_usuario){
 		ArrayList<GeneroMusical> generosPreferidos = new ArrayList<>();
-		String query = "select * from table";
+		String query = "Select g.nome_genero, g.Id_genero from tb_genero g where g.Id_genero in (SELECT FK_Id_generoPreferido FROM tb_generoUsuario where FK_Id_userName = ?);";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
 			PreparedStatement ps = c.prepareStatement(query);
-			ps.setString(parameterIndex, x);
+			ps.setInt(1, id_usuario);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				String nomeGenero = rs.getString("nome_genero");
-				int idGenero = rs.getInt("Id_genero");
+				String nomeGenero = rs.getString(1);
+				int idGenero = rs.getInt(2);
 				generosPreferidos.add(new GeneroMusical(nomeGenero, idGenero));
 			}
 		}

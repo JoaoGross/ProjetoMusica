@@ -14,18 +14,19 @@ public class MusicaDAO {
 	
 	public ArrayList<Musica> pegarNaoAvaliadas(int id_usuario, int id_genero){
 		ArrayList<Musica> musicasNaoAvaliadas = new ArrayList<>();
-		String query = "SELECT m.Id_musica ,m.nome_musica FROM tb_musicas m WHERE m.Id_musica NOT IN (SELECT Id_musica FROM tb_avaliacoes WHERE id_usuario = ?) AND m.Id_genero = ?;";
+		String query = "Select nome_musica, Id_musica, FK_Id_genero from tb_musicas m where m.Id_musica Not in (SELECT FK_Id_musica FROM tb_avaliacoes where FK_Id_userName = ?)"
+				+ "AND m.FK_Id_genero in (SELECT FK_Id_generoPreferido FROM tb_generoUsuario where FK_Id_userName = ?);";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
 			PreparedStatement ps = c.prepareStatement(query);
 
 			ps.setInt(1, id_usuario);
-			ps.setInt(2, id_genero);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				int Id = rs.getInt("id_musica");
-				String nome = rs.getString("nome");
-				Musica musica = new Musica(Id, nome);
+				String nome = rs.getString(1);
+				int idMusica = rs.getInt(2);
+				int idGenero = rs.getInt(3);
+				Musica musica = new Musica(nome, idMusica, idGenero);
 				musicasNaoAvaliadas.add(musica);
 			}
 		}
@@ -35,21 +36,21 @@ public class MusicaDAO {
 		return musicasNaoAvaliadas;
 
 	}
+	
+//	select AVG(nota_musica) from tb_avaliacoes where FK_Id_musica = ?;
 
-	public GeneroMusical pegarGenero() throws SQLException {
-		String query = "";
-		
-		ConnectionFactory factory = new ConnectionFactory();
-		try (Connection c = factory.obterConexao()){
-			//3: Pré compila o comando
-			PreparedStatement ps = c.prepareStatement(query);
-			//4: Executa o comando e guarda
-			//o resultado em um ResultSet
-			ResultSet rs = ps.executeQuery();
-			int	idGenero = rs.getInt(1);
-			String	nomeGenero = rs.getString(2);
-			GeneroMusical genero = new GeneroMusical(nomeGenero, idGenero);
-			return genero;
-		}
-	}
+
+//	public GeneroMusical pegarGenero(int IdMusica) {
+//		String query = "Select FK_Id_genero from tb_musicas where Id_musica = ?";
+//		
+//		ConnectionFactory factory = new ConnectionFactory();
+//		try (Connection c = factory.obterConexao()){
+//			PreparedStatement ps = c.prepareStatement(query);
+//			ps.setInt(1, IdMusica);
+//			ResultSet rs = ps.executeQuery();
+//			int	idGenero = rs.getInt(1);
+//			GeneroMusical genero = new GeneroMusical(idGenero);
+//			return genero;
+//		}
+//	}
 }

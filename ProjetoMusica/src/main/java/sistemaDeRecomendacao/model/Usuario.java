@@ -17,7 +17,7 @@ public class Usuario {
 		this.nomeUsuario = nomeUsuario;
 		this.senha = senha;
 		this.idUsuario = login.pegarIdUsuario(nomeUsuario);
-		this.generosPreferidos = login.pegarGenerosPreferidos(idUsuario, nomeUsuario);
+//		this.generosPreferidos = login.pegarGenerosPreferidos(idUsuario, nomeUsuario);
 	}
 	
 	public String getNome(){

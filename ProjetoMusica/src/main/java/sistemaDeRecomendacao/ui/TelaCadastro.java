@@ -2,6 +2,7 @@
 package sistemaDeRecomendacao.ui;
 
 import java.awt.event.ActionEvent;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -200,11 +201,15 @@ public class TelaCadastro extends javax.swing.JFrame {
 		String senha = new String(CampoCriarSenha.getPassword());
 		String senhaRepetida = new String(CampoRepetirSenha.getPassword());
 		GeneroMusical generoPreferido = (GeneroMusical) generoComboBox.getSelectedItem();
+		UsuarioDAO novoUsuario = new UsuarioDAO();
 		if(senha.equals(senhaRepetida)) {
-			UsuarioDAO novoUsuario = new UsuarioDAO();
 			novoUsuario.cadastrarUsuario(login, senha);
-			int IdUsuario = novoUsuario.pegarIdUsuario(login);
-			novoUsuario.cadastrarGenero(IdUsuario, generoPreferido.getId());
+			try {
+				int IdUsuario = novoUsuario.pegarIdUsuario(login);
+				novoUsuario.cadastrarGenero(IdUsuario, generoPreferido.getId());
+			}catch(Exception e) {
+				JOptionPane.showMessageDialog(null, "Nome de Usuario já existente");
+			}
 			JOptionPane.showMessageDialog(null, "Usuario Criado com sucesso");
 			TelaLogin telaLogin = new TelaLogin();
 			telaLogin.setVisible(true);

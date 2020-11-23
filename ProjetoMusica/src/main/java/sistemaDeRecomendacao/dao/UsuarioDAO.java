@@ -59,7 +59,7 @@ public class UsuarioDAO {
 	}
 	
 	public String pegarSenha (String nomeUsuario){
-		String sql = "SELECT senha FROM tb_usuario WHERE nome = ?";
+		String sql = "SELECT senha FROM tb_usuario WHERE userName = ?";
 
 		String senhaUsuario = "";
 		ConnectionFactory factory = new ConnectionFactory();

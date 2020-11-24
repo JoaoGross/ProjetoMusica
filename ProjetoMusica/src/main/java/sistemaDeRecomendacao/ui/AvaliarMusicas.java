@@ -5,9 +5,13 @@ package sistemaDeRecomendacao.ui;
 
 import javax.swing.JFrame;
 
+import sistemaDeRecomendacao.model.Musica;
+import sistemaDeRecomendacao.model.Usuario;
+
 
 public class AvaliarMusicas extends javax.swing.JFrame {
 
+   Usuario usuario;
    
     public AvaliarMusicas() {
         initComponents();
@@ -17,6 +21,18 @@ public class AvaliarMusicas extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Avaliar musicas");
+    }
+    
+    public AvaliarMusicas(Usuario usuario) {
+    	this.usuario = usuario;
+        initComponents();
+        //bloqueia o maximizar da janela
+        this.setResizable(false);
+        //inicia a janela no meio da tela
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTitle("Avaliar musicas");
+//        jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>());
     }
 
    
@@ -30,10 +46,10 @@ public class AvaliarMusicas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         BtConfirmarAvaliacao = new javax.swing.JToggleButton();
         BtVoltarTelaPrincipal2 = new javax.swing.JToggleButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxNota = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBoxMusica = new javax.swing.JComboBox<>();
 
         jTextField14.setText("jTextField1");
 
@@ -56,9 +72,9 @@ public class AvaliarMusicas extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBoxNota.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxNota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
+        jComboBoxNota.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Musicas");
@@ -67,9 +83,9 @@ public class AvaliarMusicas extends javax.swing.JFrame {
         jLabel3.setText(" Nota");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jComboBox2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
-        jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBoxMusica.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        
+        jComboBoxMusica.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,14 +95,14 @@ public class AvaliarMusicas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxMusica, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(91, 91, 91)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(38, 38, 38))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -108,8 +124,8 @@ public class AvaliarMusicas extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxNota, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                 .addComponent(BtConfirmarAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
@@ -136,7 +152,7 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 
     private void BtVoltarTelaPrincipal2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarTelaPrincipal2ActionPerformed
         //fecha a tela de avaliar musicas e volta para tela principal
-        new TelaPrincipal().setVisible(true);
+        new TelaPrincipal(usuario).setVisible(true);
         dispose();
     }//GEN-LAST:event_BtVoltarTelaPrincipal2ActionPerformed
 
@@ -179,8 +195,8 @@ public class AvaliarMusicas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtConfirmarAvaliacao;
     private javax.swing.JToggleButton BtVoltarTelaPrincipal2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBoxNota;
+    private javax.swing.JComboBox<Musica> jComboBoxMusica;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

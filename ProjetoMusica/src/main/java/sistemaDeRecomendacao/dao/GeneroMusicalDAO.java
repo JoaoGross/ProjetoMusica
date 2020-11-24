@@ -31,26 +31,30 @@ public class GeneroMusicalDAO {
 		}
 	}
 	
+	
+	
+	public Musica[] obterMusicas(int idGenero) throws Exception {
+		//obter musicas por genero
+		String sql = "";
+		ConnectionFactory conexao = new ConnectionFactory();
+		try (Connection conn = conexao.obterConexao();
+				PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
+				ResultSet rs = ps.executeQuery()) {
+			int totalDeMusicas = rs.last() ? rs.getRow() : 0;
+			Musica[] musicas = new Musica[totalDeMusicas];
+			rs.beforeFirst();
+			int contador = 0;
+			while (rs.next()) {
+				int idMusica= rs.getInt(1);
+				String nome = rs.getString(2);
+				musicas[contador++] = new Musica(nome, idMusica, idGenero);
+			}
+			return musicas;
+		}
+	}
+	
 
 
-//	public ArrayList<Musica> pegarMusicas() {
-//		String query = "SELECT * from tb_musicas";
-//		ArrayList<Musica> musicas = new ArrayList<>();
-//		ConnectionFactory conexao = new ConnectionFactory();
-//		try (Connection c = conexao.obterConexao()){
-//			
-//			PreparedStatement ps = c.prepareStatement(query);
-//			ResultSet rs = ps.executeQuery();
-//			while(rs.next()) {
-//				int idMusica = rs.getInt("Id_musica");
-//				String nomeMusica = rs.getString("nome_musica");
-////				Musica musica = new Musica(idMusica, nomeMusica);
-////				musicas.add(musica);
-//			}
-//			
-//		}catch (Exception e){
-//			e.printStackTrace();
-//		}
-//		return musicas;
-//	}
+	
 }

@@ -37,6 +37,40 @@ public class MusicaDAO {
 
 	}
 	
+//	public Musica[] obterMusicas() throws Exception {
+//		String sql = "SELECT Id_genero, nome_musica FK_Id_genero FROM tb_musicas";
+//		ConnectionFactory conexao = new ConnectionFactory();
+//		try (Connection conn = conexao.obterConexao();
+//				PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+//						ResultSet.CONCUR_READ_ONLY);
+//				ResultSet rs = ps.executeQuery()) {
+//			int totalDeMusica = rs.last() ? rs.getRow() : 0;
+//			Musica[] musicas = new Musica[totalDeMusica];
+//			rs.beforeFirst();
+//			int contador = 0;
+//			while (rs.next()) {
+//				int idMusica= rs.getInt(1);
+//				String nome = rs.getString(2);
+//				int idGenero = rs.getInt(3);
+//				musicas[contador++] = new Musica(nome, idMusica, idGenero);
+//			}
+//			return musicas;
+//		}
+//	}
+	
+	public GeneroMusical obterGenero(int idGenero) throws Exception {
+		String sql = "SELECT nome_genero FROM tb_genero where Id_genero =?";
+		ConnectionFactory conexao = new ConnectionFactory();
+		try (Connection conn = conexao.obterConexao();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(idGenero, 1);
+			ResultSet rs = ps.executeQuery();
+			String nomeGenero = rs.getString(1);
+			GeneroMusical genero = new GeneroMusical(nomeGenero, idGenero);
+			return genero;
+		}
+	}
+	
 //	select AVG(nota_musica) from tb_avaliacoes where FK_Id_musica = ?;
 
 

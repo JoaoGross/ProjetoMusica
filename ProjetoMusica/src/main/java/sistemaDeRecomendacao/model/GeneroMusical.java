@@ -7,13 +7,13 @@ import sistemaDeRecomendacao.dao.GeneroMusicalDAO;
 public class GeneroMusical {
 	int id;
 	String nomeGenero;
-	ArrayList<Musica> musicas;
+	Musica[] musicas;
 	
-	public GeneroMusical(String nome, int id) {
+	public GeneroMusical(String nome, int id) throws Exception {
 		GeneroMusicalDAO genero = new GeneroMusicalDAO();
 		this.nomeGenero = nome;
 		this.id = id;
-//		this.musicas = genero.pegarMusicas();
+		this.musicas = genero.obterMusicas(id);
 	}
 	
 	public GeneroMusical(int id) {
@@ -24,7 +24,7 @@ public class GeneroMusical {
 	public int getId() {
 		return id;
 	}
-	public ArrayList<Musica> getMusicas() {
+	public Musica[] getMusicas() {
 		return musicas;
 	}
 	

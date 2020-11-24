@@ -41,7 +41,12 @@ public class TelaLogin extends javax.swing.JFrame {
 		BtEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		BtEntrar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				BtEntrarActionPerformed(evt);
+				try {
+					BtEntrarActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -137,7 +142,7 @@ public class TelaLogin extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	private void BtEntrarActionPerformed(java.awt.event.ActionEvent evt) {
+	private void BtEntrarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
 		String login = CampoInserirUsuario.getText();
 		String senha = new String(CampoInserirSenha.getPassword());
 		
@@ -146,7 +151,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
 		if(senha.equals(dbSenha)) {
 			Usuario usuario = new Usuario(login, senha);
-			TelaPrincipal telaPrincipal = new TelaPrincipal();
+			TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
 			telaPrincipal.setVisible(true);
 			this.dispose();
 		}else {

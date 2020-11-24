@@ -9,29 +9,37 @@ public class Usuario {
 	int idUsuario;
 	String nomeUsuario;
 	String senha;
-	ArrayList<GeneroMusical> generosPreferidos;
+	GeneroMusical[] generosPreferidos;
 	
 	//Login
-	public Usuario(String nomeUsuario, String senha){
+	public Usuario(String nomeUsuario, String senha) throws Exception{
 		UsuarioDAO login = new UsuarioDAO();
 		this.nomeUsuario = nomeUsuario;
 		this.senha = senha;
 		this.idUsuario = login.pegarIdUsuario(nomeUsuario);
-//		this.generosPreferidos = login.pegarGenerosPreferidos(idUsuario, nomeUsuario);
+		this.generosPreferidos = login.pegarGenerosPreferidos(idUsuario);
 	}
 	
 	public String getNome(){
 		return nomeUsuario;
 	}
 	
+	public int getId() {
+		return idUsuario;
+	}
+	
 	public ArrayList<Musica> recomendar(){
 		MusicaDAO musica = new MusicaDAO();
 		ArrayList<Musica> recomendacoes = new ArrayList<>();
-		for(int i = 0; i<= generosPreferidos.size(); i++) {
-			recomendacoes.addAll(musica.pegarNaoAvaliadas(idUsuario, generosPreferidos.get(i).getId()));
+		for(int i = 0; i<= generosPreferidos.length; i++) {
+			recomendacoes.addAll(musica.pegarNaoAvaliadas(idUsuario, generosPreferidos[i].getId()));
 		}
 		
 		return recomendacoes;
+	}
+	
+	public GeneroMusical[] getGenerosPreferidos(){
+		return generosPreferidos;
 	}
 
 }

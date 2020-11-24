@@ -2,16 +2,27 @@ package sistemaDeRecomendacao.ui;
 
 import javax.swing.JOptionPane;
 
+import sistemaDeRecomendacao.model.Usuario;
+
 
 public class TelaPrincipal extends javax.swing.JFrame {
-
+	Usuario usuario;
    
-    public TelaPrincipal() {
+//    public TelaPrincipal() {
+//        initComponents();
+//           //bloqueia o maximizar da janela
+//        this.setResizable(false);
+//        //inicia a janela no meio da tela
+//        this.setLocationRelativeTo(null);
+//    }
+    
+    public TelaPrincipal(Usuario usuario) {
         initComponents();
            //bloqueia o maximizar da janela
         this.setResizable(false);
         //inicia a janela no meio da tela
         this.setLocationRelativeTo(null);
+        this.usuario = usuario;
     }
 
    
@@ -121,17 +132,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtTelaGenerosPreferidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaGenerosPreferidosActionPerformed
-        new GenerosPreferidos().setVisible(true);
+    private void BtTelaGenerosPreferidosActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+			new GenerosPreferidos(usuario).setVisible(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         dispose();
         
-    }//GEN-LAST:event_BtTelaGenerosPreferidosActionPerformed
+    }
 
-    private void BtTelaAvaliarMusicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaAvaliarMusicasActionPerformed
+    private void BtTelaAvaliarMusicasActionPerformed(java.awt.event.ActionEvent evt) {
         //abre tela Avaliar Musicas
         new AvaliarMusicas().setVisible(true);
         dispose();
-    }//GEN-LAST:event_BtTelaAvaliarMusicasActionPerformed
+    }
 
     private void BtSairProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSairProgramaActionPerformed
        int sair=JOptionPane.showConfirmDialog(null,"Tem certeza que deseja sair?","Atenção",JOptionPane.YES_NO_OPTION);
@@ -148,37 +164,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaPrincipal().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new TelaPrincipal().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtSairPrograma;

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import sistemaDeRecomendacao.bd.ConnectionFactory;
 import sistemaDeRecomendacao.model.GeneroMusical;
 import sistemaDeRecomendacao.model.Musica;
@@ -18,7 +20,8 @@ public class GeneroMusicalDAO {
 				PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
 						ResultSet.CONCUR_READ_ONLY);
 				ResultSet rs = ps.executeQuery()) {
-			int totalDeGeneros = rs.last() ? rs.getRow() : 0;
+			rs.last();
+			int totalDeGeneros =  rs.getRow();
 			GeneroMusical[] generos = new GeneroMusical[totalDeGeneros];
 			rs.beforeFirst();
 			int contador = 0;
@@ -30,31 +33,34 @@ public class GeneroMusicalDAO {
 			return generos;
 		}
 	}
-	
-	
-	
+
+
+
 	public Musica[] obterMusicas(int idGenero) throws Exception {
 		//obter musicas por genero
-		String sql = "";
+		String sql = "SELECT nome_musica, Id_musica FROM tb_musicas WHERE FK_Id_genero = ?;";
 		ConnectionFactory conexao = new ConnectionFactory();
-		try (Connection conn = conexao.obterConexao();
-				PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
-						ResultSet.CONCUR_READ_ONLY);
-				ResultSet rs = ps.executeQuery()) {
-			int totalDeMusicas = rs.last() ? rs.getRow() : 0;
+		try (Connection conn = conexao.obterConexao()) {
+			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, idGenero);
+			ResultSet rs = ps.executeQuery();
+			rs.last();
+			int totalDeMusicas =  rs.getRow();
 			Musica[] musicas = new Musica[totalDeMusicas];
 			rs.beforeFirst();
 			int contador = 0;
 			while (rs.next()) {
-				int idMusica= rs.getInt(1);
-				String nome = rs.getString(2);
-				musicas[contador++] = new Musica(nome, idMusica, idGenero);
+				String nome = rs.getString(1);
+				int idMusica= rs.getInt(2);
+				musicas[contador] = new Musica(nome, idMusica);
+				contador++;
 			}
 			return musicas;
 		}
 	}
-	
 
 
-	
+
+
 }

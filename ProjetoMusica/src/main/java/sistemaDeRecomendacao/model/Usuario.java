@@ -28,6 +28,26 @@ public class Usuario {
 		return idUsuario;
 	}
 	
+	public GeneroMusical[] getGenerosPreferidos(){
+		return generosPreferidos;
+	}
+	
+	public Musica[] getMusicasUsuario() {
+		int qtdMusicas = 0;
+		int qtd = generosPreferidos.length -1;
+		
+		for(int i=0; i<= qtd; i++) {
+			int musicas = generosPreferidos[i].getMusicas().length;
+			qtdMusicas += musicas;
+		}
+		Musica[] musicas = new Musica[qtdMusicas];
+		int cont = 0;
+		for(int i=0; i<= qtd; i++) {
+			System.arraycopy(generosPreferidos[i].getMusicas(), 0, musicas, cont, generosPreferidos[i].getMusicas().length);
+			cont += generosPreferidos[i].getMusicas().length;
+		}
+		return musicas;
+	}
 	public ArrayList<Musica> recomendar(){
 		MusicaDAO musica = new MusicaDAO();
 		ArrayList<Musica> recomendacoes = new ArrayList<>();
@@ -38,8 +58,5 @@ public class Usuario {
 		return recomendacoes;
 	}
 	
-	public GeneroMusical[] getGenerosPreferidos(){
-		return generosPreferidos;
-	}
 
 }

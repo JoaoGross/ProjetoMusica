@@ -154,6 +154,7 @@ public class TelaLogin extends javax.swing.JFrame {
 			TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
 			telaPrincipal.setVisible(true);
 			this.dispose();
+//			JOptionPane.showMessageDialog(null, usuario.getMusicasUsuario());
 		}else {
 			JOptionPane.showMessageDialog(null, "Usuário inválido");
 		}

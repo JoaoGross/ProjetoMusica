@@ -81,26 +81,6 @@ public class UsuarioDAO {
 		return senhaUsuario;
 	}
 
-	//	public GeneroMusical[] pegarGenerosPreferidos(int id_usuario) throws Exception{
-	//		String query = "Select g.nome_genero, g.Id_genero from tb_genero g where g.Id_genero in (SELECT FK_Id_generoPreferido FROM tb_generoUsuario where FK_Id_userName = ?);";
-	//		ConnectionFactory factory = new ConnectionFactory();
-	//		try (Connection c = factory.obterConexao(); PreparedStatement ps = c.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
-	//				ResultSet.CONCUR_READ_ONLY);){
-	//			ps.setInt(1, id_usuario);
-	//			ResultSet rs = ps.executeQuery();
-	//			int totalDeGeneros = rs.last () ? rs.getRow() : 0;
-	//            GeneroMusical [] generosPreferidos = new GeneroMusical[totalDeGeneros];
-	//			int contador = 0;
-	//			while (rs.next()) {
-	//				String nomeGenero = rs.getString(1);
-	//				int idGenero = rs.getInt(2);
-	//				generosPreferidos[contador] = new GeneroMusical(nomeGenero, idGenero);
-	//				contador++;
-	//			}
-	//		}
-	//		return generosPreferidos;
-	//
-	//	}
 
 	public GeneroMusical[] pegarGenerosPreferidos(int id_usuario) throws Exception {
 		String sql = "Select g.nome_genero, g.Id_genero from tb_genero g where g.Id_genero in (SELECT FK_Id_generoPreferido FROM tb_generoUsuario where FK_Id_userName = ?);";
@@ -110,14 +90,16 @@ public class UsuarioDAO {
 						ResultSet.CONCUR_READ_ONLY);) {
 			ps.setInt(1, id_usuario);
 			ResultSet rs = ps.executeQuery();
-			int totalDeGeneros = rs.last() ? rs.getRow() : 0;
+			rs.last();
+			int totalDeGeneros = rs.getRow();
 			GeneroMusical[] generosPreferidos = new GeneroMusical[totalDeGeneros];
 			rs.beforeFirst();
 			int contador = 0;
 			while (rs.next()) {
 				String nome = rs.getString(1);
 				int id= rs.getInt(2);
-				generosPreferidos[contador++] = new GeneroMusical(nome, id);
+				generosPreferidos[contador] = new GeneroMusical(nome, id);
+				contador++;
 			}
 			return generosPreferidos;
 		}
@@ -133,7 +115,8 @@ public class UsuarioDAO {
 						ResultSet.CONCUR_READ_ONLY);) {
 			ps.setInt(1, id_usuario);
 			ResultSet rs = ps.executeQuery();
-			int totalDeGeneros = rs.last() ? rs.getRow() : 0;
+			rs.last();
+			int totalDeGeneros = rs.getRow();
 			GeneroMusical[] generos = new GeneroMusical[totalDeGeneros];
 			rs.beforeFirst();
 			int contador = 0;

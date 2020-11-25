@@ -15,9 +15,10 @@ public class ConnectionFactory {
 	private String porta = "3306";
 	private String bd = "projeto";
 
-	public Connection obterConexao (){
+	public Connection obterConexao () throws Exception{
+		Connection c = null;
 		try{
-			Connection c = DriverManager.getConnection(
+			c = DriverManager.getConnection(
 					"jdbc:mysql://" + host + ":" + porta + "/" + bd  + "?useTimezone=true&serverTimezone=UTC",
 					usuario,
 					senha
@@ -28,8 +29,7 @@ public class ConnectionFactory {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
+	}}
 	/*Banco:
 	 * Tabela tb_usuarios(Id_usuario, Nome, Senha, FK_Id_generoPreferio)
 	 * Tabel tb_musicas(Id_musica, nome_musica, Id_genero)
@@ -86,4 +86,4 @@ insert into tb_avaliacoes (Id_usuario,Id_musica,nota_musica) values ("1", "1","5
 
 	
 
-}
+

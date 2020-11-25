@@ -145,7 +145,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void BtTelaAvaliarMusicasActionPerformed(java.awt.event.ActionEvent evt) {
         //abre tela Avaliar Musicas
-        new AvaliarMusicas().setVisible(true);
+        new AvaliarMusicas(usuario).setVisible(true);
         dispose();
     }
 

@@ -9,6 +9,10 @@ public class GeneroMusical {
 	String nomeGenero;
 	Musica[] musicas;
 	
+	
+	public GeneroMusical() throws Exception {
+		
+	}
 	public GeneroMusical(String nome, int id) throws Exception {
 		GeneroMusicalDAO genero = new GeneroMusicalDAO();
 		this.nomeGenero = nome;
@@ -16,11 +20,15 @@ public class GeneroMusical {
 		this.musicas = genero.obterMusicas(id);
 	}
 	
-	public GeneroMusical(int id) {
-		GeneroMusicalDAO genero = new GeneroMusicalDAO();
-		this.id = id;
-//		this.nomeGenero = nome;
-	}
+//	public void preencherMusicas(int generohhh) {
+//		GeneroMusicalDAO genero = new GeneroMusicalDAO();
+//		try {
+//			musicas = genero.obterMusicas(generohhh);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	public int getId() {
 		return id;
 	}

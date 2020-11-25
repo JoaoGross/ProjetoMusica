@@ -4,7 +4,10 @@
 package sistemaDeRecomendacao.ui;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import sistemaDeRecomendacao.dao.MusicaDAO;
+import sistemaDeRecomendacao.model.GeneroMusical;
 import sistemaDeRecomendacao.model.Musica;
 import sistemaDeRecomendacao.model.Usuario;
 
@@ -13,15 +16,15 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 
    Usuario usuario;
    
-    public AvaliarMusicas() {
-        initComponents();
-        //bloqueia o maximizar da janela
-        this.setResizable(false);
-        //inicia a janela no meio da tela
-        this.setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Avaliar musicas");
-    }
+//    public AvaliarMusicas() {
+//        initComponents();
+//        //bloqueia o maximizar da janela
+//        this.setResizable(false);
+//        //inicia a janela no meio da tela
+//        this.setLocationRelativeTo(null);
+//        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        setTitle("Avaliar musicas");
+//    }
     
     public AvaliarMusicas(Usuario usuario) {
     	this.usuario = usuario;
@@ -32,7 +35,7 @@ public class AvaliarMusicas extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Avaliar musicas");
-//        jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>());
+        jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>(usuario.getMusicasUsuario()));
     }
 
    
@@ -61,6 +64,11 @@ public class AvaliarMusicas extends javax.swing.JFrame {
         BtConfirmarAvaliacao.setText("Confirmar avaliações");
         BtConfirmarAvaliacao.setToolTipText("Confirmar");
         BtConfirmarAvaliacao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtConfirmarAvaliacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtConfirmarAvaliacaoActionPerformed(evt);
+            }
+        });
 
         BtVoltarTelaPrincipal2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         BtVoltarTelaPrincipal2.setText("Voltar");
@@ -150,47 +158,66 @@ public class AvaliarMusicas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtVoltarTelaPrincipal2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarTelaPrincipal2ActionPerformed
+    private void BtVoltarTelaPrincipal2ActionPerformed(java.awt.event.ActionEvent evt) {
         //fecha a tela de avaliar musicas e volta para tela principal
         new TelaPrincipal(usuario).setVisible(true);
         dispose();
-    }//GEN-LAST:event_BtVoltarTelaPrincipal2ActionPerformed
-
+    }
+    private void BtConfirmarAvaliacaoActionPerformed(java.awt.event.ActionEvent evt) {
+        Musica musicaAvaliada = (Musica) jComboBoxMusica.getSelectedItem();
+        int nota = Integer.parseInt((String) jComboBoxNota.getSelectedItem());
+        MusicaDAO musicaDao = new MusicaDAO();
+        if(musicaAvaliada.getNota() == 0) {
+        	try {
+				musicaDao.avaliarMusica(musicaAvaliada, nota, usuario);
+				JOptionPane.showMessageDialog(null, "Musica avaliada com sucesso");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }else {
+        	try {
+				musicaDao.atualizarNota(musicaAvaliada, nota, usuario);
+				JOptionPane.showMessageDialog(null, "Nota atualizada com sucesso");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AvaliarMusicas().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new AvaliarMusicas().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtConfirmarAvaliacao;

@@ -38,7 +38,8 @@ public class GeneroMusicalDAO {
 
 	public Musica[] obterMusicas(int idGenero) throws Exception {
 		//obter musicas por genero
-		String sql = "SELECT nome_musica, Id_musica FROM tb_musicas WHERE FK_Id_genero = ?;";
+		String sql = "SELECT m.nome_musica, m.id_musica from tb_musicas m where m.Id_musica in "
+				+ "(SELECT FK_Id_musica from tb_generoMusicas where FK_Id_genero = ?);";
 		ConnectionFactory conexao = new ConnectionFactory();
 		try (Connection conn = conexao.obterConexao()) {
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,

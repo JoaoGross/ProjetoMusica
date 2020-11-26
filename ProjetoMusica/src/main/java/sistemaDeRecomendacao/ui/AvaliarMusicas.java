@@ -167,10 +167,11 @@ public class AvaliarMusicas extends javax.swing.JFrame {
         Musica musicaAvaliada = (Musica) jComboBoxMusica.getSelectedItem();
         int nota = Integer.parseInt((String) jComboBoxNota.getSelectedItem());
         MusicaDAO musicaDao = new MusicaDAO();
-        if(musicaAvaliada.getNota() == 0) {
+        if(musicaAvaliada.getNotaUsuario() == 0) {
         	try {
 				musicaDao.avaliarMusica(musicaAvaliada, nota, usuario);
 				JOptionPane.showMessageDialog(null, "Musica avaliada com sucesso");
+				musicaAvaliada.setNotaUsuario(nota);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -182,6 +183,9 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 				e.printStackTrace();
 			}
         }
+        
+        new TelaPrincipal(usuario).setVisible(true);
+        dispose();
     }
     /**
      * @param args the command line arguments

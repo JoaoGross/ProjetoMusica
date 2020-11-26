@@ -157,7 +157,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     private void BtTelaRecomendacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtTelaRecomendacoesActionPerformed
         //abre tela Recomendações
-        new Recomendacoes().setVisible(true);
+        new Recomendacoes(usuario).setVisible(true);
         dispose();
     }//GEN-LAST:event_BtTelaRecomendacoesActionPerformed
 

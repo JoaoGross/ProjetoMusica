@@ -1,16 +1,32 @@
 package sistemaDeRecomendacao.ui;
 import javax.swing.JFrame;
 
-public class Recomendacoes extends javax.swing.JFrame {
+import sistemaDeRecomendacao.dao.MusicaDAO;
+import sistemaDeRecomendacao.model.Musica;
+import sistemaDeRecomendacao.model.Usuario;
 
+public class Recomendacoes extends javax.swing.JFrame {
+	Usuario usuario;
    
-    public Recomendacoes() {
+    public Recomendacoes(Usuario usuario) {
         initComponents();
         //bloqueia o maximizar da janela
         this.setResizable(false);
         //inicia a janela no meio da tela
         this.setLocationRelativeTo(null);
+        this.usuario = usuario;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        try {
+			jTable1.setModel(new javax.swing.table.DefaultTableModel(
+					coteudoRecomendado(),
+			    new String [] {
+			        "Musicas", "nota"
+			    }
+			));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     
@@ -28,33 +44,24 @@ public class Recomendacoes extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(321, 288));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Musicas", "nota"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        
+        
+       
+//            Class[] types = new Class [] {
+//                java.lang.String.class, java.lang.Double.class
+//            };
+//            boolean[] canEdit = new boolean [] {
+//                false, false
+//            };
+//
+//            public Class getColumnClass(int columnIndex) {
+//                return types [columnIndex];
+//            }
+//
+//            public boolean isCellEditable(int rowIndex, int columnIndex) {
+//                return canEdit [columnIndex];
+//            }
+//        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -113,49 +120,66 @@ public class Recomendacoes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtVoltarTelaPrincipal3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarTelaPrincipal3ActionPerformed
+
+    private String[][] coteudoRecomendado() throws Exception {
+		MusicaDAO musicasNaoAvaliadas = new MusicaDAO();
+		Musica[] musicasRecomendadas;
+		musicasRecomendadas = musicasNaoAvaliadas.obterNaoAvaliadas(usuario.getId());
+		
+		String[][] recomendacoes = new String[musicasRecomendadas.length][3];
+		int ctd = 0;
+		for(int i = 0; i<= musicasRecomendadas.length - 1; i++) {
+			recomendacoes[ctd++] = new String[] {musicasRecomendadas[i].getNome(), String.format( "%.1f", musicasRecomendadas[i].getNotaMedia())};
+		}
+		return recomendacoes;
+	}
+
+	
+
+
+	private void BtVoltarTelaPrincipal3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarTelaPrincipal3ActionPerformed
         //fecha a tela de recomendações e volta para tela principal
-        new TelaPrincipal().setVisible(true);
+        new TelaPrincipal(usuario).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtVoltarTelaPrincipal3ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Recomendacoes().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Recomendacoes().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtVoltarTelaPrincipal3;

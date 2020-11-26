@@ -142,22 +142,38 @@ public class TelaLogin extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	private void BtEntrarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
+	private void BtEntrarActionPerformed(java.awt.event.ActionEvent evt) {
 		String login = CampoInserirUsuario.getText();
 		String senha = new String(CampoInserirSenha.getPassword());
 		
-		UsuarioDAO usuarioDao = new UsuarioDAO();
-		String dbSenha = usuarioDao.pegarSenha(login);
+//		UsuarioDAO usuarioDao = new UsuarioDAO();
+//		String dbSenha = usuarioDao.pegarSenha(login);
 
-		if(senha.equals(dbSenha)) {
-			Usuario usuario = new Usuario(login, senha);
-			TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
-			telaPrincipal.setVisible(true);
-			this.dispose();
-//			JOptionPane.showMessageDialog(null, usuario.getMusicasUsuario());
-		}else {
-			JOptionPane.showMessageDialog(null, "Usuário inválido");
+		try {
+			// verifica se o usuário é válido
+			UsuarioDAO usuarioDao = new UsuarioDAO();
+			Usuario usuario = new Usuario(login, senha, usuarioDao.obterIdUsuario(login));
+			if (usuarioDao.existe(usuario)) {
+				TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
+				telaPrincipal.setVisible(true);
+				this.dispose();
+			} else {
+				JOptionPane.showMessageDialog(null, "Usuário inválido");
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Problemas técnicos. Tente novamente mais tarde");
+			e.printStackTrace();
 		}
+		
+//		if(senha.equals(dbSenha)) {
+//			Usuario usuario = new Usuario(login, senha);
+//			TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
+//			telaPrincipal.setVisible(true);
+//			this.dispose();
+////			JOptionPane.showMessageDialog(null, usuario.getMusicasUsuario());
+//		}else {
+//			JOptionPane.showMessageDialog(null, "Usuário inválido");
+//		}
 	}
 
 	private void BtTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) throws Exception {

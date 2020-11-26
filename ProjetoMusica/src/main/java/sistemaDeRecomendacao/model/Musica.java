@@ -9,25 +9,39 @@ public class Musica {
 	int idMusica;
 	String nomeMusica;
 	GeneroMusical genero;
-	int nota = 0;
+	double notaMedia;
+	int notaUsuario;
 
 	public Musica(String nome, int idMusica) throws Exception {
 		this.idMusica = idMusica;
 		this.nomeMusica = nome;
 		MusicaDAO musicaDao = new MusicaDAO();
-		this.nota = musicaDao.obterNota(idMusica);
+		this.notaMedia = musicaDao.obterNotaMedia(idMusica);
+		this.notaUsuario = musicaDao.obterNotaUsuario(idMusica);
 	}
 	
-	public void setNota(int nota) {
-		this.nota = nota;
+	public void setNotaMedia(double nota) {
+		this.notaMedia = nota;
+	}
+	
+	public void setNotaUsuario(int nota) {
+		this.notaMedia = nota;
 	}
 	
 	public int getId() {
 		return idMusica;
 	}
 	
-	public int getNota() {
-		return nota;
+	public String getNome() {
+		return nomeMusica;
+	}
+	
+	public double getNotaMedia() {
+		return notaMedia;
+	}
+	
+	public int getNotaUsuario() {
+		return notaUsuario;
 	}
 	@Override
 	public String toString() {

@@ -10,14 +10,12 @@ public class Musica {
 	String nomeMusica;
 	GeneroMusical genero;
 	double notaMedia;
-	int notaUsuario;
 
 	public Musica(String nome, int idMusica) throws Exception {
 		this.idMusica = idMusica;
 		this.nomeMusica = nome;
 		MusicaDAO musicaDao = new MusicaDAO();
 		this.notaMedia = musicaDao.obterNotaMedia(idMusica);
-		this.notaUsuario = musicaDao.obterNotaUsuario(idMusica);
 	}
 	
 	public void setNotaMedia(double nota) {
@@ -38,10 +36,6 @@ public class Musica {
 	
 	public double getNotaMedia() {
 		return notaMedia;
-	}
-	
-	public int getNotaUsuario() {
-		return notaUsuario;
 	}
 	@Override
 	public String toString() {

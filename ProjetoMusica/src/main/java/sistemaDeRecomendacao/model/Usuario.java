@@ -53,10 +53,6 @@ public class Usuario {
 		}
 		return musicas;
 	}
-	public Musica[] recomendacoes() throws Exception{
-		MusicaDAO musicaDao = new MusicaDAO();
-		return musicaDao.obterNaoAvaliadas(idUsuario);
-	}
 	
 
 }

@@ -14,16 +14,7 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 
 	Usuario usuario;
 	MusicaDAO musicaDao = new MusicaDAO();
-	//    public AvaliarMusicas() {
-	//        initComponents();
-	//        //bloqueia o maximizar da janela
-	//        this.setResizable(false);
-	//        //inicia a janela no meio da tela
-	//        this.setLocationRelativeTo(null);
-	//        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	//        setTitle("Avaliar musicas");
-	//    }
-
+	
 	public AvaliarMusicas(Usuario usuario) {
 		this.usuario = usuario;
 		initComponents();
@@ -31,11 +22,6 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Avaliar musicas");
-		try {
-			jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>(musicaDao.obterNaoAvaliadas(usuario)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 
@@ -92,6 +78,11 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 
 		jComboBoxMusica.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		jComboBoxMusica.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		try {
+			jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>(musicaDao.obterNaoAvaliadas(usuario)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		BtVerMusicasAvaliadas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		BtVerMusicasAvaliadas.setText("Ver musicas já avaliadas");
@@ -198,9 +189,6 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		//		new TelaPrincipal(usuario).setVisible(true);
-		//		dispose();
 	}
 
 

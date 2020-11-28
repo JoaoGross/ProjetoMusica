@@ -67,7 +67,7 @@ public class MusicaDAO {
 		}
 	}
 
-	public boolean avaliarMusica(Musica musicaAvaliada, int nota, Usuario usuario) throws Exception{
+	public boolean avaliarMusica(Musica musicaAvaliada, int nota, Usuario usuario) {
 		String query = "insert into tb_avaliacoes (FK_Id_userName,FK_Id_musica,nota_musica) values (?, ?,?);";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
@@ -84,7 +84,7 @@ public class MusicaDAO {
 		}
 	}
 	
-	public boolean atualizarNota(String nomeMusica, int nota, Usuario usuario) throws Exception{
+	public boolean atualizarNota(String nomeMusica, int nota, Usuario usuario) {
 		String query = "UPDATE tb_avaliacoes SET nota_musica = ? where FK_Id_musica in "
 				+ "(select Id_musica from tb_musicas where nome_musica = ?) And FK_Id_userName = ?;";
 		ConnectionFactory factory = new ConnectionFactory();

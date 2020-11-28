@@ -78,26 +78,6 @@ public class UsuarioDAO {
 		}
 	}
 
-	public String pegarSenha (String nomeUsuario){
-		String sql = "SELECT Senha FROM tb_usuario WHERE userName = ?";
-
-		String senhaUsuario = "";
-		ConnectionFactory factory = new ConnectionFactory();
-		try (Connection c = factory.obterConexao()){
-			PreparedStatement ps = c.prepareStatement(sql);
-			ps.setString(1, nomeUsuario);
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				senhaUsuario = rs.getString(1);
-			}
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-		return senhaUsuario;
-	}
-
-
 	public GeneroMusical[] pegarGenerosPreferidos(int id_usuario) throws Exception {
 		String sql = "Select g.nome_genero, g.Id_genero from tb_genero g where g.Id_genero in "
 				+ "(SELECT FK_Id_generoPreferido FROM tb_generoUsuario where FK_Id_userName = ?);";
@@ -146,7 +126,7 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public boolean adicionarGeneroPreferido(GeneroMusical novoGenero, Usuario usuario) throws Exception{
+	public boolean adicionarGeneroPreferido(GeneroMusical novoGenero, Usuario usuario) {
 		String query = "insert into tb_generoUsuario (FK_Id_userName,FK_Id_generoPreferido) values (?, ?);";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
@@ -163,7 +143,7 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public boolean excluirGeneroPreferido(GeneroMusical generoExcluido, Usuario usuario) throws Exception{
+	public boolean excluirGeneroPreferido(GeneroMusical generoExcluido, Usuario usuario) {
 		String query = "delete from tb_generoUsuario WHERE FK_Id_userName = ? AND FK_Id_generoPreferido = ?;";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){

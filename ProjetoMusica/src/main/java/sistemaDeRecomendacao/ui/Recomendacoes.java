@@ -8,36 +8,19 @@ import sistemaDeRecomendacao.model.Usuario;
 public class Recomendacoes extends javax.swing.JFrame {
 	Usuario usuario;
 
-	@SuppressWarnings("serial")
 	public Recomendacoes(Usuario usuario) {
+		this.usuario = usuario;
 		initComponents();
 		//bloqueia o maximizar da janela
 		this.setResizable(false);
 		//inicia a janela no meio da tela
 		this.setLocationRelativeTo(null);
-		this.usuario = usuario;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		try {
-
-			jTable1.setModel(new javax.swing.table.DefaultTableModel(
-					coteudoRecomendado(),
-					new String [] {
-							"Musicas", "nota"
-					}) {
-				@Override
-				public boolean isCellEditable(int row, int column) {
-					return false;
-				}
-			}
-					);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 
-	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+	@SuppressWarnings({ "unchecked", "serial" })
 	private void initComponents() {
 
 		jPanel1 = new javax.swing.JPanel();
@@ -65,6 +48,22 @@ public class Recomendacoes extends javax.swing.JFrame {
 				BtVoltarTelaPrincipal3ActionPerformed(evt);
 			}
 		});
+		
+		try {
+
+			jTable1.setModel(new javax.swing.table.DefaultTableModel(
+					coteudoRecomendado(usuario),
+					new String [] {
+							"Musicas", "nota"
+					}) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					return false;
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -109,12 +108,12 @@ public class Recomendacoes extends javax.swing.JFrame {
 				);
 
 		pack();
-	}// </editor-fold>//GEN-END:initComponents
+	}
 
 
 	
 	
-	private String[][] coteudoRecomendado() throws Exception {
+	private String[][] coteudoRecomendado(Usuario usuario) throws Exception {
 		
 		MusicaDAO musicasNaoAvaliadas = new MusicaDAO();
 		Musica[] musicasRecomendadas;
@@ -125,16 +124,10 @@ public class Recomendacoes extends javax.swing.JFrame {
 		for(int i = 0; i<= musicasRecomendadas.length - 1; i++) {
 			recomendacoes[ctd++] = new String[] {musicasRecomendadas[i].getNome(), String.format( "%.1f", musicasRecomendadas[i].getNotaMedia())};
 		}
-		return recomendacoes;
-		
-		
+		return recomendacoes;		
 	}
 
-
-
-
-	private void BtVoltarTelaPrincipal3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarTelaPrincipal3ActionPerformed
-		//fecha a tela de recomendações e volta para tela principal
+	private void BtVoltarTelaPrincipal3ActionPerformed(java.awt.event.ActionEvent evt) {
 		new TelaPrincipal(usuario).setVisible(true);
 		this.dispose();
 	}

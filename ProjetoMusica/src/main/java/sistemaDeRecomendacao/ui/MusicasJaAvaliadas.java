@@ -2,6 +2,7 @@ package sistemaDeRecomendacao.ui;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import sistemaDeRecomendacao.dao.MusicaDAO;
@@ -15,16 +16,13 @@ public class MusicasJaAvaliadas extends javax.swing.JFrame {
     @SuppressWarnings("serial")
 	public MusicasJaAvaliadas(Usuario usuario) {
         initComponents();
-        //bloqueia o maximizar da janela
         this.setResizable(false);
-        //inicia a janela no meio da tela
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Musicas já avaliadas");
         this.usuario = usuario;
         try {
-
-			musicasAvaliadas.setModel(new javax.swing.table.DefaultTableModel(
+        	musicasAvaliadas.setModel(new javax.swing.table.DefaultTableModel(
 					coteudoAvaliado(),
 					new String [] {
 							"Musicas", "nota"
@@ -70,10 +68,6 @@ public class MusicasJaAvaliadas extends javax.swing.JFrame {
 
        
         jScrollPane1.setViewportView(musicasAvaliadas);
-//        if (jTable2.getColumnModel().getColumnCount() > 0) {
-//            jTable2.getColumnModel().getColumn(0).setResizable(false);
-//            jTable2.getColumnModel().getColumn(1).setResizable(false);
-//        }
 
         BtAtualizarAvaliacoes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         BtAtualizarAvaliacoes.setText("Atualizar  avaliaçoes");
@@ -130,7 +124,7 @@ public class MusicasJaAvaliadas extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private String[][] coteudoAvaliado() throws Exception {
     	MusicaDAO musicaDao = new MusicaDAO();
@@ -149,59 +143,50 @@ public class MusicasJaAvaliadas extends javax.swing.JFrame {
     private void BtVoltarTelaAvaliarMusicasActionPerformed(java.awt.event.ActionEvent evt) {
         new AvaliarMusicas(usuario).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_BtVoltarTelaAvaliarMusicasActionPerformed
-
-    private void BtAtualizarAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {
-    	TableModel tabelaAtualizada = musicasAvaliadas.getModel();
-        MusicaDAO musicaDao = new MusicaDAO();
+    }
+    
+    public void atualizarDados(TableModel tabelaAtualizada) {
+    	MusicaDAO musicaDao = new MusicaDAO();
     	for(int i = 0; i<= tabelaAtualizada.getRowCount() - 1; i++) {
         	try {
         		String nomeMusica = (String) tabelaAtualizada.getValueAt(i, 0);
         		int nota = Integer.parseInt((String) tabelaAtualizada.getValueAt(i, 1));
-				musicaDao.atualizarNota( nomeMusica, nota, usuario);
+				if(musicaDao.atualizarNota( nomeMusica, nota, usuario)) {
+					JOptionPane.showMessageDialog(null, "Insira apenas numeros inteiros de 1 à 5");
+					return;
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Insira apenas numeros inteiros de 1 à 5");
+				return;
 			}
         }
-    	new AvaliarMusicas(usuario).setVisible(true);
-        this.dispose();
+    	JOptionPane.showMessageDialog(null, "Nota atualizada com sucesso");
     }
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(MusicasJaAvaliadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(MusicasJaAvaliadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(MusicasJaAvaliadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(MusicasJaAvaliadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new MusicasJaAvaliadas(usuario).setVisible(true);
-//            }
-//        });
-//    }
+    private void BtAtualizarAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {
+//    	TableModel tabelaAtualizada = musicasAvaliadas.getModel();
+    	atualizarDados(musicasAvaliadas.getModel());
+    	 try {
+         	musicasAvaliadas.setModel(new javax.swing.table.DefaultTableModel(
+ 					coteudoAvaliado(),
+ 					new String [] {
+ 							"Musicas", "nota"
+ 					}) {
+ 				@Override
+ 				public boolean isCellEditable(int row, int column) {
+ 					return column == 1;
+ 				}
+ 			}
+ 					);
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 		}
+//    	new AvaliarMusicas(usuario).setVisible(true);
+//        this.dispose();
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtAtualizarAvaliacoes;

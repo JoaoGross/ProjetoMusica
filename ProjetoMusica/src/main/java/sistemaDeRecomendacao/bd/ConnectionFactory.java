@@ -50,8 +50,8 @@ CREATE TABLE tb_musicas (
 
 CREATE TABLE tb_usuario (
     Id_usuario int not null auto_increment,
-    userName char(100) NOT NULL,
-    Senha char(16),
+    userName char(100) NOT NULL check (userName != ""),
+    Senha char(16) NOT NULL check (senha != ""),
     primary key (Id_usuario),
     UNIQUE (userName)
 );

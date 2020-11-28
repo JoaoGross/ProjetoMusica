@@ -73,11 +73,6 @@ public class TelaCadastro extends javax.swing.JFrame {
 		CampoConfirmarSenha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		CampoConfirmarSenha.setText("Repetir senha");
 
-		CriarUsuario.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				CriarUsuarioActionPerformed(evt);
-			}
-		});
 
 		CampoCriarSenha.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,9 +187,6 @@ public class TelaCadastro extends javax.swing.JFrame {
 		pack();
 	}
 
-	private void CriarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {
-
-	}
 
 	private void BotaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
 		String login = CriarUsuario.getText();

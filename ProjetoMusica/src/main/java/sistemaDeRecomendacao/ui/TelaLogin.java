@@ -158,22 +158,12 @@ public class TelaLogin extends javax.swing.JFrame {
 				telaPrincipal.setVisible(true);
 				this.dispose();
 			} else {
-				JOptionPane.showMessageDialog(null, "Usuário inválido");
+				JOptionPane.showMessageDialog(null, "Login ou senha inválido");
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Problemas técnicos. Tente novamente mais tarde");
 			e.printStackTrace();
 		}
-		
-//		if(senha.equals(dbSenha)) {
-//			Usuario usuario = new Usuario(login, senha);
-//			TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
-//			telaPrincipal.setVisible(true);
-//			this.dispose();
-////			JOptionPane.showMessageDialog(null, usuario.getMusicasUsuario());
-//		}else {
-//			JOptionPane.showMessageDialog(null, "Usuário inválido");
-//		}
 	}
 
 	private void BtTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) throws Exception {

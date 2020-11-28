@@ -24,11 +24,8 @@ public class GenerosPreferidos extends javax.swing.JFrame {
     
     public GenerosPreferidos(Usuario usuario) throws Exception {
         initComponents();
-        //bloqueia o maximizar da janela
         this.setResizable(false);
-        //inicia a janela no meio da tela
         this.setLocationRelativeTo(null);
-        //descarta o objeto frame e mantem o apricativo rodando
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.usuario = usuario;
         setTitle("Generos preferidos");
@@ -39,7 +36,6 @@ public class GenerosPreferidos extends javax.swing.JFrame {
 
     
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -55,7 +51,6 @@ public class GenerosPreferidos extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(321, 288));
 
-//        BtAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("sistemaDeRecomendacao/images/adc.png"))); // NOI18N
         BtAdicionar.setToolTipText("Adicionar");
         BtAdicionar.setText("Adicionar");
         BtAdicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -70,7 +65,7 @@ public class GenerosPreferidos extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("       Meus Generos");
 
         BtVoltarTelaPrincipal.setText("Voltar");
@@ -83,7 +78,7 @@ public class GenerosPreferidos extends javax.swing.JFrame {
 
         
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Adicionar novo");
 
         BtExcluir.setText("Excluir");
@@ -93,7 +88,6 @@ public class GenerosPreferidos extends javax.swing.JFrame {
                 try {
 					BtExcluirActionPerformed(evt);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
@@ -158,10 +152,9 @@ public class GenerosPreferidos extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void BtVoltarTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {
-        //fecha a tela de Generos Preferidos e volta para tela principal
         new TelaPrincipal(usuario).setVisible(true);
         this.dispose();
     }
@@ -169,8 +162,10 @@ public class GenerosPreferidos extends javax.swing.JFrame {
     private void BtAdicionarActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
     	GeneroMusical novoGenero = (GeneroMusical) jComboBox2.getSelectedItem();
     	UsuarioDAO usuarioDao = new UsuarioDAO();
-    	usuarioDao.adicionarGeneroPreferido(novoGenero, usuario);
-    	JOptionPane.showMessageDialog(null, "Genero Adicionado com sucesso");
+    	if(usuarioDao.adicionarGeneroPreferido(novoGenero, usuario)) {
+    		JOptionPane.showMessageDialog(null, "Genero Adicionado com sucesso");
+    	}
+    	
     	jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(usuarioDao.pegarGenerosPreferidos(usuario.getId())));
     	jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(usuarioDao.obterGenerosNaoFavoritos(usuario.getId())));
     }
@@ -178,48 +173,13 @@ public class GenerosPreferidos extends javax.swing.JFrame {
     private void BtExcluirActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
     	GeneroMusical generoExcluido = (GeneroMusical) jComboBox1.getSelectedItem();
     	UsuarioDAO usuarioDao = new UsuarioDAO();
-    	usuarioDao.excluirGeneroPreferido(generoExcluido, usuario);
-    	JOptionPane.showMessageDialog(null, "Genero Excluido com sucesso");
+    	if(usuarioDao.excluirGeneroPreferido(generoExcluido, usuario)) {
+    		JOptionPane.showMessageDialog(null, "Genero Excluido com sucesso");
+    	}
     	jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(usuarioDao.pegarGenerosPreferidos(usuario.getId())));
     	jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(usuarioDao.obterGenerosNaoFavoritos(usuario.getId())));
     }
 
-
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GenerosPreferidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GenerosPreferidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GenerosPreferidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GenerosPreferidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GenerosPreferidos(usuario).setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BtAdicionar;

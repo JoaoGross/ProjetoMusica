@@ -10,7 +10,7 @@ import sistemaDeRecomendacao.model.Usuario;
 
 public class GenerosPreferidos extends javax.swing.JFrame {
 	Usuario usuario;
-<<<<<<< HEAD
+
     
 //    public GenerosPreferidos() {
 //        initComponents();

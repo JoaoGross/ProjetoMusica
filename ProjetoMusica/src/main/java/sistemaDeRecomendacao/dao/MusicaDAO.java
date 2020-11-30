@@ -44,7 +44,6 @@ public class MusicaDAO {
 	}
 	
 	public Musica[] obterAvaliadas(Usuario usuario) throws Exception {
-		//obter musicas por genero
 		String query = "Select m.nome_musica, m.Id_musica  from tb_musicas m where m.Id_musica in "
 				+ "(SELECT FK_Id_musica FROM tb_avaliacoes where FK_Id_userName = ?);";
 		ConnectionFactory conexao = new ConnectionFactory();
@@ -67,12 +66,8 @@ public class MusicaDAO {
 			return musicas;
 		}
 	}
-	
-//	String query = "Select nome_musica, Id_musica, FK_Id_genero from tb_musicas m where m.Id_musica Not in "
-//			+ "(SELECT FK_Id_musica FROM tb_avaliacoes where FK_Id_userName = ?)"
-//			+ "AND m.FK_Id_genero in (SELECT FK_Id_generoPreferido FROM tb_generoUsuario where FK_Id_userName = ?);";
 
-	public void avaliarMusica(Musica musicaAvaliada, int nota, Usuario usuario) throws Exception{
+	public boolean avaliarMusica(Musica musicaAvaliada, int nota, Usuario usuario) {
 		String query = "insert into tb_avaliacoes (FK_Id_userName,FK_Id_musica,nota_musica) values (?, ?,?);";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
@@ -81,13 +76,15 @@ public class MusicaDAO {
 			ps.setInt(2, musicaAvaliada.getId());
 			ps.setInt(3, nota);
 			ps.execute();
+			return true;
 		}
 		catch (Exception e){
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
-	public void atualizarNota(String nomeMusica, int nota, Usuario usuario) throws Exception{
+	public boolean atualizarNota(String nomeMusica, int nota, Usuario usuario) {
 		String query = "UPDATE tb_avaliacoes SET nota_musica = ? where FK_Id_musica in "
 				+ "(select Id_musica from tb_musicas where nome_musica = ?) And FK_Id_userName = ?;";
 		ConnectionFactory factory = new ConnectionFactory();
@@ -97,10 +94,11 @@ public class MusicaDAO {
 			ps.setString(2, nomeMusica);
 			ps.setInt(3,usuario.getId());
 			ps.execute();
+			return false;
 		}
 		catch (Exception e){
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Insira apenas valores inteiros de 1 à 5");
+			return true;
 		}
 	}
 	
@@ -133,38 +131,5 @@ public class MusicaDAO {
 			}
 			return nota;
 		}
-	}
-
-//	public GeneroMusical obterGenero(int idGenero) throws Exception {
-//		String sql = "SELECT nome_genero FROM tb_genero where Id_genero =?";
-//		ConnectionFactory conexao = new ConnectionFactory();
-//		GeneroMusical genero = new GeneroMusical();
-//		try (Connection conn = conexao.obterConexao()) {
-//			PreparedStatement ps = conn.prepareStatement(sql);
-//			ps.setInt(1, idGenero);
-//			ResultSet rs = ps.executeQuery();
-//			if(rs.next()) {
-//				String nomeGenero = rs.getString(1);
-//				genero = new GeneroMusical(nomeGenero, idGenero);
-//			}
-//			return genero;
-//		}
-//	}
-		//	select AVG(nota_musica) from tb_avaliacoes where FK_Id_musica = ?;
-
-
-		//	public GeneroMusical pegarGenero(int IdMusica) {
-		//		String query = "Select FK_Id_genero from tb_musicas where Id_musica = ?";
-		//		
-		//		ConnectionFactory factory = new ConnectionFactory();
-		//		try (Connection c = factory.obterConexao()){
-		//			PreparedStatement ps = c.prepareStatement(query);
-		//			ps.setInt(1, IdMusica);
-		//			ResultSet rs = ps.executeQuery();
-		//			int	idGenero = rs.getInt(1);
-		//			GeneroMusical genero = new GeneroMusical(idGenero);
-		//			return genero;
-		//		}
-		//	}
-	
+	}	
 }

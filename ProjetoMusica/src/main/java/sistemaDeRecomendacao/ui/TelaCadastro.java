@@ -16,9 +16,10 @@ import sistemaDeRecomendacao.model.GeneroMusical;
 
 
 public class TelaCadastro extends javax.swing.JFrame {
+	
+	GeneroMusicalDAO generos = new GeneroMusicalDAO();
 
-
-	public TelaCadastro() throws Exception {
+	public TelaCadastro() {
 
 		initComponents();
 		this.setResizable(false);
@@ -30,8 +31,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 
 
 	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-	private void initComponents() throws Exception {
+	private void initComponents() {
 
 		jPanel1 = new javax.swing.JPanel();
 		jLabel1 = new javax.swing.JLabel();
@@ -64,31 +64,31 @@ public class TelaCadastro extends javax.swing.JFrame {
 			}
 		});
 
+<<<<<<< HEAD
 		CampoCriarUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		CampoCriarUsuario.setText("Nome usuário");
+=======
+		CampoCriarUsuario.setFont(new java.awt.Font("Tahoma", 1, 11));
+		CampoCriarUsuario.setText("Nome usuario");
+>>>>>>> 31e4ba63449906497426bdbd9f4c9549f6fb32ba
 
-		jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+		jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
 		jLabel3.setText("Senha");
 
-		CampoConfirmarSenha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+		CampoConfirmarSenha.setFont(new java.awt.Font("Tahoma", 1, 11));
 		CampoConfirmarSenha.setText("Repetir senha");
 
-		CriarUsuario.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				CriarUsuarioActionPerformed(evt);
-			}
-		});
 
-		CampoCriarSenha.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				CampoCriarSenhaActionPerformed(evt);
-			}
-
-			private void CampoCriarSenhaActionPerformed(ActionEvent evt) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+//		CampoCriarSenha.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				CampoCriarSenhaActionPerformed(evt);
+//			}
+//
+//			private void CampoCriarSenhaActionPerformed(ActionEvent evt) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
 
 		BtVoltarTelaLogin.setFont(new java.awt.Font("Tahoma", 1, 11));
 		BtVoltarTelaLogin.setText("Voltar");
@@ -101,9 +101,11 @@ public class TelaCadastro extends javax.swing.JFrame {
 		});
 
 		generoComboBox.setFont(new java.awt.Font("Tahoma", 1, 11));
-
-		GeneroMusicalDAO generos = new GeneroMusicalDAO();
-		generoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(generos.obterGeneros()));
+		try {
+			generoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(generos.obterGeneros()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		generoComboBox.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -191,17 +193,15 @@ public class TelaCadastro extends javax.swing.JFrame {
 
 		pack();
 	}
-
-	private void CriarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {
-
-	}
-
+	
 	private void BotaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
+		
 		String login = CriarUsuario.getText();
 		String senha = new String(CampoCriarSenha.getPassword());
 		String senhaRepetida = new String(CampoRepetirSenha.getPassword());
 		GeneroMusical generoPreferido = (GeneroMusical) generoComboBox.getSelectedItem();
 		UsuarioDAO novoUsuario = new UsuarioDAO();
+		
 		if(senha.equals(senhaRepetida)) {
 			try {
 				novoUsuario.cadastrarUsuario(login, senha);
@@ -211,6 +211,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 			catch(Exception e) {
 				JOptionPane.showMessageDialog(null, "Ocorreu um erro");
 			}
+			
 			TelaLogin telaLogin = new TelaLogin();
 			telaLogin.setVisible(true);
 			this.dispose();
@@ -220,7 +221,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 		}
 	}
 
-	private void BtVoltarTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarTelaLoginActionPerformed
+	private void BtVoltarTelaLoginActionPerformed(java.awt.event.ActionEvent evt) {
 		new TelaLogin().setVisible(true);
 		dispose();     
 

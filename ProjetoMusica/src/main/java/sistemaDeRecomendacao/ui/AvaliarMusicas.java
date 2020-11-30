@@ -14,28 +14,40 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 
 	Usuario usuario;
 	MusicaDAO musicaDao = new MusicaDAO();
-	
+	//    public AvaliarMusicas() {
+	//        initComponents();
+	//        //bloqueia o maximizar da janela
+	//        this.setResizable(false);
+	//        //inicia a janela no meio da tela
+	//        this.setLocationRelativeTo(null);
+	//        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	//        setTitle("Avaliar musicas");
+	//    }
+
 	public AvaliarMusicas(Usuario usuario) {
 		this.usuario = usuario;
 		initComponents();
+		//bloqueia o maximizar da janela
 		this.setResizable(false);
+		//inicia a janela no meio da tela
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
 		setTitle("Avaliar músicas");
 		try {
 			jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>(musicaDao.obterNaoAvaliadas(usuario)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 
 	@SuppressWarnings("unchecked")
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
 		jTextField14 = new javax.swing.JTextField();
+		jPopupMenu1 = new javax.swing.JPopupMenu();
+		jPopupMenu2 = new javax.swing.JPopupMenu();
 		jPanel1 = new javax.swing.JPanel();
 		BtConfirmarAvaliacao = new javax.swing.JToggleButton();
 		BtVoltarTelaPrincipal2 = new javax.swing.JToggleButton();
@@ -85,11 +97,6 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 
 		jComboBoxMusica.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		jComboBoxMusica.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-		try {
-			jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>(musicaDao.obterNaoAvaliadas(usuario)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
 		BtVerMusicasAvaliadas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		BtVerMusicasAvaliadas.setText("Ver músicas já avaliadas");
@@ -99,10 +106,8 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 			}
 		});
 
-
 		jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 		jLabel2.setText("Avaliar minhas músicas");
-
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -172,14 +177,15 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 				);
 
 		pack();
-	}
+	}// </editor-fold>//GEN-END:initComponents
 
 	private void BtVoltarTelaPrincipal2ActionPerformed(java.awt.event.ActionEvent evt) {
+		//fecha a tela de avaliar musicas e volta para tela principal
 		new TelaPrincipal(usuario).setVisible(true);
 		dispose();
 	}
 
-	private void BtVerMusicasAvaliadasActionPerformed(java.awt.event.ActionEvent evt) {
+	private void BtVerMusicasAvaliadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVerMusicasAvaliadasActionPerformed
 		new MusicasJaAvaliadas(usuario).setVisible(true);
 		dispose();
 	}
@@ -189,19 +195,51 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 		int nota = Integer.parseInt((String) jComboBoxNota.getSelectedItem());
 
 		try {
-
-			if(musicaDao.avaliarMusica(musicaAvaliada, nota, usuario)) {
-				JOptionPane.showMessageDialog(null, "Música avaliada com sucesso");
-			}else {
-				JOptionPane.showMessageDialog(null, "Sem músicas para avaliar");
-			}
-			jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>(musicaDao.obterNaoAvaliadas(usuario)));
-
+			musicaDao.avaliarMusica(musicaAvaliada, nota, usuario);
+			JOptionPane.showMessageDialog(null, "Música avaliada com sucesso");
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
 
+		new TelaPrincipal(usuario).setVisible(true);
+		dispose();
+	}
+	/**
+	 * @param args the command line arguments
+	 */
+	//    public static void main(String args[]) {
+	//        /* Set the Nimbus look and feel */
+	//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+	//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+	//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+	//         */
+	//        try {
+	//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+	//                if ("Nimbus".equals(info.getName())) {
+	//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+	//                    break;
+	//                }
+	//            }
+	//        } catch (ClassNotFoundException ex) {
+	//            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	//        } catch (InstantiationException ex) {
+	//            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	//        } catch (IllegalAccessException ex) {
+	//            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	//            java.util.logging.Logger.getLogger(AvaliarMusicas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	//        }
+	//        //</editor-fold>
+	//        //</editor-fold>
+	//
+	//        /* Create and display the form */
+	//        java.awt.EventQueue.invokeLater(new Runnable() {
+	//            public void run() {
+	//                new AvaliarMusicas().setVisible(true);
+	//            }
+	//        });
+	//    }
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JToggleButton BtConfirmarAvaliacao;
@@ -213,6 +251,8 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JPanel jPanel1;
+	private javax.swing.JPopupMenu jPopupMenu1;
+	private javax.swing.JPopupMenu jPopupMenu2;
 	private javax.swing.JTextField jTextField14;
 	// End of variables declaration//GEN-END:variables
 }

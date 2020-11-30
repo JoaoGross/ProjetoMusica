@@ -14,7 +14,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
 	public TelaLogin() {
 		initComponents();
+		//bloqueia o maximizar da janela
 		this.setResizable(false);
+		//inicia a janela no meio da tela
 		this.setLocationRelativeTo(null);
 	}
 
@@ -32,14 +34,19 @@ public class TelaLogin extends javax.swing.JFrame {
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-		jPanel1.setName("");
+		jPanel1.setName(""); // NOI18N
 
-		BtEntrar.setFont(new java.awt.Font("Tahoma", 1, 11));
+		BtEntrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		BtEntrar.setText("Entrar");
 		BtEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		BtEntrar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				BtEntrarActionPerformed(evt);
+				try {
+					BtEntrarActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -49,7 +56,12 @@ public class TelaLogin extends javax.swing.JFrame {
 		BtTelaCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		BtTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				BtTelaCadastroActionPerformed(evt);
+				try {
+					BtTelaCadastroActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -58,6 +70,17 @@ public class TelaLogin extends javax.swing.JFrame {
 
 		CampoSenha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		CampoSenha.setText("Senha");
+
+		CampoInserirUsuario.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				CampoInserirUsuarioActionPerformed(evt);
+			}
+
+			private void CampoInserirUsuarioActionPerformed(ActionEvent evt) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -117,33 +140,44 @@ public class TelaLogin extends javax.swing.JFrame {
 				);
 
 		pack();
-	}
+	}// </editor-fold>//GEN-END:initComponents
 
 	private void BtEntrarActionPerformed(java.awt.event.ActionEvent evt) {
-		
 		String login = CampoInserirUsuario.getText();
 		String senha = new String(CampoInserirSenha.getPassword());
+		
+//		UsuarioDAO usuarioDao = new UsuarioDAO();
+//		String dbSenha = usuarioDao.pegarSenha(login);
 
 		try {
+			// verifica se o usuário é válido
 			UsuarioDAO usuarioDao = new UsuarioDAO();
 			Usuario usuario = new Usuario(login, senha, usuarioDao.obterIdUsuario(login));
 			if (usuarioDao.existe(usuario)) {
-				
 				TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
 				telaPrincipal.setVisible(true);
 				this.dispose();
-				
 			} else {
-				JOptionPane.showMessageDialog(null, "Login ou senha inválido");
+				JOptionPane.showMessageDialog(null, "Usuário inválido");
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Problemas técnicos. Tente novamente mais tarde");
 			e.printStackTrace();
 		}
+		
+//		if(senha.equals(dbSenha)) {
+//			Usuario usuario = new Usuario(login, senha);
+//			TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
+//			telaPrincipal.setVisible(true);
+//			this.dispose();
+////			JOptionPane.showMessageDialog(null, usuario.getMusicasUsuario());
+//		}else {
+//			JOptionPane.showMessageDialog(null, "Usuário inválido");
+//		}
 	}
 
-	private void BtTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) {
-		
+	private void BtTelaCadastroActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
+		//abre tela para cadastro de usuario
 		new TelaCadastro().setVisible(true);
 		dispose();
 	}

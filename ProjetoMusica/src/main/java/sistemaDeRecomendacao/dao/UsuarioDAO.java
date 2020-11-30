@@ -17,8 +17,7 @@ public class UsuarioDAO {
 	public boolean existe(Usuario usuario) throws Exception {
 		String sql = "SELECT * FROM tb_usuario WHERE userName= ? AND Senha = ?";
 		ConnectionFactory factory = new ConnectionFactory();
-		try (Connection conn = factory.obterConexao(); 
-				PreparedStatement ps = conn.prepareStatement(sql)) {
+		try (Connection conn = factory.obterConexao(); PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setString(1, usuario.getNome());
 			ps.setString(2, usuario.getSenha());
 			try (ResultSet rs = ps.executeQuery()) {
@@ -39,18 +38,17 @@ public class UsuarioDAO {
 			JOptionPane.showMessageDialog(null, "Usuario Criado com sucesso");
 		}
 		catch (SQLIntegrityConstraintViolationException e){
-			JOptionPane.showMessageDialog(null, "Nome de usuario j· existe");
+			JOptionPane.showMessageDialog(null, "nome de usuario j· existe");
 			e.printStackTrace();
 		}
 		catch (Exception e){
-			JOptionPane.showMessageDialog(null, "Nome de usuario ou senha inv·lido");
 			e.printStackTrace();
 		}
 	}
 
 	public void cadastrarGenero (int IdUsuario, int IdGenero){
-		String query = "insert into tb_generoUsuario (FK_Id_userName,FK_Id_generoPreferido) "
-				+ "values ( ?, ?);";
+		String query = "insert into tb_generoUsuario (FK_Id_userName,FK_Id_generoPreferido) values ( ?, ?);";
+
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
 			PreparedStatement ps = c.prepareStatement(query);
@@ -77,6 +75,29 @@ public class UsuarioDAO {
 			return idUsuario;
 		}
 	}
+
+	public String pegarSenha (String nomeUsuario){
+		String sql = "SELECT Senha FROM tb_usuario WHERE userName = ?";
+
+		String senhaUsuario = "";
+		ConnectionFactory factory = new ConnectionFactory();
+		try (Connection c = factory.obterConexao()){
+			//3: Pr√© compila o comando
+			PreparedStatement ps = c.prepareStatement(sql);
+			//4: Executa o comando e guarda
+			//o resultado em um ResultSet
+			ps.setString(1, nomeUsuario);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				senhaUsuario = rs.getString(1);
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return senhaUsuario;
+	}
+
 
 	public GeneroMusical[] pegarGenerosPreferidos(int id_usuario) throws Exception {
 		String sql = "Select g.nome_genero, g.Id_genero from tb_genero g where g.Id_genero in "
@@ -126,7 +147,7 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public boolean adicionarGeneroPreferido(GeneroMusical novoGenero, Usuario usuario) {
+	public void adicionarGeneroPreferido(GeneroMusical novoGenero, Usuario usuario) throws Exception{
 		String query = "insert into tb_generoUsuario (FK_Id_userName,FK_Id_generoPreferido) values (?, ?);";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
@@ -134,16 +155,13 @@ public class UsuarioDAO {
 			ps.setInt(1, usuario.getId());
 			ps.setInt(2, novoGenero.getId());
 			ps.execute();
-			return true;
 		}
 		catch (Exception e){
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Sem generos para adicionar");
-			return false;
 		}
 	}
 	
-	public boolean excluirGeneroPreferido(GeneroMusical generoExcluido, Usuario usuario) {
+	public void excluirGeneroPreferido(GeneroMusical generoExcluido, Usuario usuario) throws Exception{
 		String query = "delete from tb_generoUsuario WHERE FK_Id_userName = ? AND FK_Id_generoPreferido = ?;";
 		ConnectionFactory factory = new ConnectionFactory();
 		try (Connection c = factory.obterConexao()){
@@ -151,12 +169,9 @@ public class UsuarioDAO {
 			ps.setInt(1, usuario.getId());
 			ps.setInt(2, generoExcluido.getId());
 			ps.execute();
-			return true;
 		}
 		catch (Exception e){
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Sem generos para excluir");
-			return false;
 		}
 	}
 }

@@ -8,15 +8,15 @@ import sistemaDeRecomendacao.model.Usuario;
 public class Recomendacoes extends javax.swing.JFrame {
 	Usuario usuario;
 
+	@SuppressWarnings("serial")
 	public Recomendacoes(Usuario usuario) {
-		this.usuario = usuario;
 		initComponents();
 		//bloqueia o maximizar da janela
 		this.setResizable(false);
 		//inicia a janela no meio da tela
 		this.setLocationRelativeTo(null);
+		this.usuario = usuario;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-<<<<<<< HEAD
 		try {
 
 			jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -33,13 +33,11 @@ public class Recomendacoes extends javax.swing.JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-=======
-		
->>>>>>> 31e4ba63449906497426bdbd9f4c9549f6fb32ba
 	}
 
 
-	@SuppressWarnings({ "unchecked", "serial" })
+	@SuppressWarnings("unchecked")
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
 		jPanel1 = new javax.swing.JPanel();
@@ -67,22 +65,6 @@ public class Recomendacoes extends javax.swing.JFrame {
 				BtVoltarTelaPrincipal3ActionPerformed(evt);
 			}
 		});
-		
-		try {
-
-			jTable1.setModel(new javax.swing.table.DefaultTableModel(
-					coteudoRecomendado(usuario),
-					new String [] {
-							"Musicas", "nota"
-					}) {
-				@Override
-				public boolean isCellEditable(int row, int column) {
-					return false;
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -127,12 +109,12 @@ public class Recomendacoes extends javax.swing.JFrame {
 				);
 
 		pack();
-	}
+	}// </editor-fold>//GEN-END:initComponents
 
 
 	
 	
-	private String[][] coteudoRecomendado(Usuario usuario) throws Exception {
+	private String[][] coteudoRecomendado() throws Exception {
 		
 		MusicaDAO musicasNaoAvaliadas = new MusicaDAO();
 		Musica[] musicasRecomendadas;
@@ -143,14 +125,57 @@ public class Recomendacoes extends javax.swing.JFrame {
 		for(int i = 0; i<= musicasRecomendadas.length - 1; i++) {
 			recomendacoes[ctd++] = new String[] {musicasRecomendadas[i].getNome(), String.format( "%.1f", musicasRecomendadas[i].getNotaMedia())};
 		}
-		return recomendacoes;		
+		return recomendacoes;
+		
+		
 	}
 
-	private void BtVoltarTelaPrincipal3ActionPerformed(java.awt.event.ActionEvent evt) {
+
+
+
+	private void BtVoltarTelaPrincipal3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarTelaPrincipal3ActionPerformed
+		//fecha a tela de recomendações e volta para tela principal
 		new TelaPrincipal(usuario).setVisible(true);
 		this.dispose();
-	}
+	}//GEN-LAST:event_BtVoltarTelaPrincipal3ActionPerformed
 
+	/**
+	 * @param args the command line arguments
+	 */
+	//    public static void main(String args[]) {
+	//        /* Set the Nimbus look and feel */
+	//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+	//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+	//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+	//         */
+	//        try {
+	//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+	//                if ("Nimbus".equals(info.getName())) {
+	//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+	//                    break;
+	//                }
+	//            }
+	//        } catch (ClassNotFoundException ex) {
+	//            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	//        } catch (InstantiationException ex) {
+	//            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	//        } catch (IllegalAccessException ex) {
+	//            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	//            java.util.logging.Logger.getLogger(Recomendacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	//        }
+	//        //</editor-fold>
+	//        //</editor-fold>
+	//        //</editor-fold>
+	//        //</editor-fold>
+	//
+	//        /* Create and display the form */
+	//        java.awt.EventQueue.invokeLater(new Runnable() {
+	//            public void run() {
+	//                new Recomendacoes().setVisible(true);
+	//            }
+	//        });
+	//    }
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JToggleButton BtVoltarTelaPrincipal3;

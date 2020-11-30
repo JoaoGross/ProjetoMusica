@@ -21,16 +21,14 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-<<<<<<< HEAD
+
 		setTitle("Avaliar músicas");
 		try {
 			jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>(musicaDao.obterNaoAvaliadas(usuario)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-=======
-		setTitle("Avaliar musicas");
->>>>>>> 31e4ba63449906497426bdbd9f4c9549f6fb32ba
+
 	}
 
 
@@ -101,13 +99,10 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 			}
 		});
 
-<<<<<<< HEAD
+
 		jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 		jLabel2.setText("Avaliar minhas músicas");
-=======
-		jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12));
-		jLabel2.setText("Avaliar minhas musicas");
->>>>>>> 31e4ba63449906497426bdbd9f4c9549f6fb32ba
+
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);

@@ -24,8 +24,7 @@ public class ConnectionFactory {
 			return null;
 		}
 	}}
-<<<<<<< HEAD
-=======
+
 /*Banco:
 	
 Drop database projeto;
@@ -150,8 +149,6 @@ insert into tb_avaliacoes (FK_Id_userName,FK_Id_musica,nota_musica) values ("1",
 insert into tb_avaliacoes (FK_Id_userName,FK_Id_musica,nota_musica) values ("2", "9","5");
 	 */
 
-
->>>>>>> 31e4ba63449906497426bdbd9f4c9549f6fb32ba
 	
 
 

@@ -31,7 +31,7 @@ public class GenerosPreferidos extends javax.swing.JFrame {
         //descarta o objeto frame e mantem o apricativo rodando
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.usuario = usuario;
-        setTitle("Generos preferidos");
+        setTitle("Gêneros preferidos");
         UsuarioDAO usuarioDao = new UsuarioDAO();
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(usuarioDao.pegarGenerosPreferidos(usuario.getId())));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(usuarioDao.obterGenerosNaoFavoritos(usuario.getId())));
@@ -71,7 +71,7 @@ public class GenerosPreferidos extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("       Meus Generos");
+        jLabel2.setText("       Meus Gêneros");
 
         BtVoltarTelaPrincipal.setText("Voltar");
         BtVoltarTelaPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -179,7 +179,7 @@ public class GenerosPreferidos extends javax.swing.JFrame {
     	GeneroMusical generoExcluido = (GeneroMusical) jComboBox1.getSelectedItem();
     	UsuarioDAO usuarioDao = new UsuarioDAO();
     	usuarioDao.excluirGeneroPreferido(generoExcluido, usuario);
-    	JOptionPane.showMessageDialog(null, "Genero Excluido com sucesso");
+    	JOptionPane.showMessageDialog(null, "Gênero excluido com sucesso");
     	jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(usuarioDao.pegarGenerosPreferidos(usuario.getId())));
     	jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(usuarioDao.obterGenerosNaoFavoritos(usuario.getId())));
     }

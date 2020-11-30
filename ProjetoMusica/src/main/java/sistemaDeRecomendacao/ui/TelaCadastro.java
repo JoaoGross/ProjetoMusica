@@ -52,7 +52,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 
 		jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 		jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabel1.setText("Cadastro de usuarios");
+		jLabel1.setText("Cadastro de usuários");
 
 		BotaoCadastrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		BotaoCadastrar.setText("Cadastrar");
@@ -65,7 +65,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 		});
 
 		CampoCriarUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-		CampoCriarUsuario.setText("Nome usuario");
+		CampoCriarUsuario.setText("Nome usuário");
 
 		jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		jLabel3.setText("Senha");
@@ -108,7 +108,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 		generoComboBox.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
 		jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
-		jLabel4.setText("Genero favorito");
+		jLabel4.setText("Gênero favorito");
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -216,7 +216,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 			this.dispose();
 
 		}else {
-			JOptionPane.showMessageDialog(null, "As Senhas nao correspondem");
+			JOptionPane.showMessageDialog(null, "As senhas não correspondem");
 		}
 	}
 

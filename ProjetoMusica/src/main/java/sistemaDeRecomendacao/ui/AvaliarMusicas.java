@@ -32,7 +32,7 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 		//inicia a janela no meio da tela
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("Avaliar musicas");
+		setTitle("Avaliar músicas");
 		try {
 			jComboBoxMusica.setModel(new javax.swing.DefaultComboBoxModel<>(musicaDao.obterNaoAvaliadas(usuario)));
 		} catch (Exception e) {
@@ -89,7 +89,7 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 		jComboBoxNota.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
 		jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-		jLabel1.setText("Musicas");
+		jLabel1.setText("Músicas");
 
 		jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		jLabel3.setText(" Nota");
@@ -99,7 +99,7 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 		jComboBoxMusica.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
 		BtVerMusicasAvaliadas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-		BtVerMusicasAvaliadas.setText("Ver musicas já avaliadas");
+		BtVerMusicasAvaliadas.setText("Ver músicas já avaliadas");
 		BtVerMusicasAvaliadas.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				BtVerMusicasAvaliadasActionPerformed(evt);
@@ -107,7 +107,7 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 		});
 
 		jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-		jLabel2.setText("Avaliar minhas musicas");
+		jLabel2.setText("Avaliar minhas músicas");
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -196,7 +196,7 @@ public class AvaliarMusicas extends javax.swing.JFrame {
 
 		try {
 			musicaDao.avaliarMusica(musicaAvaliada, nota, usuario);
-			JOptionPane.showMessageDialog(null, "Musica avaliada com sucesso");
+			JOptionPane.showMessageDialog(null, "Música avaliada com sucesso");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

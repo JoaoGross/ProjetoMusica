@@ -52,7 +52,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
 		BtTelaCadastro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		BtTelaCadastro.setText("Não tem cadastro?");
-		BtTelaCadastro.setToolTipText("Cadastre aqui");
+		BtTelaCadastro.setToolTipText("Cadastre-se aqui");
 		BtTelaCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		BtTelaCadastro.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +66,7 @@ public class TelaLogin extends javax.swing.JFrame {
 		});
 
 		CampoNomeUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-		CampoNomeUsuario.setText("Nome usuario");
+		CampoNomeUsuario.setText("Nome usuário");
 
 		CampoSenha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 		CampoSenha.setText("Senha");

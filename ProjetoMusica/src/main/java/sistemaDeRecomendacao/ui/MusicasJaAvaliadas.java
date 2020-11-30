@@ -27,7 +27,7 @@ public class MusicasJaAvaliadas extends javax.swing.JFrame {
 			musicasAvaliadas.setModel(new javax.swing.table.DefaultTableModel(
 					coteudoAvaliado(),
 					new String [] {
-							"Musicas", "nota"
+							"Músicas", "nota"
 					}) {
 				@Override
 				public boolean isCellEditable(int row, int column) {
@@ -66,7 +66,7 @@ public class MusicasJaAvaliadas extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Musicas jÃ¡ avaliadas");
+        jLabel1.setText("Músicas já avaliadas");
 
        
         jScrollPane1.setViewportView(musicasAvaliadas);
@@ -76,7 +76,7 @@ public class MusicasJaAvaliadas extends javax.swing.JFrame {
 //        }
 
         BtAtualizarAvaliacoes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        BtAtualizarAvaliacoes.setText("Atualizar  avaliaçoes");
+        BtAtualizarAvaliacoes.setText("Atualizar avaliações");
         BtAtualizarAvaliacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtAtualizarAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,7 +161,7 @@ public class MusicasJaAvaliadas extends javax.swing.JFrame {
 				musicaDao.atualizarNota( nomeMusica, nota, usuario);
 			} catch (Exception e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Insira apenas numeros inteiros de 1 à 5");
+				JOptionPane.showMessageDialog(null, "Insira apenas números inteiros de 1 à 5");
 			}
         }
     	new AvaliarMusicas(usuario).setVisible(true);

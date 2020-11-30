@@ -6,9 +6,9 @@ import sistemaDeRecomendacao.dao.MusicaDAO;
 import sistemaDeRecomendacao.dao.UsuarioDAO;
 
 public class Usuario {
-	int idUsuario;
-	String nomeUsuario;
-	String senha;
+	private int idUsuario;
+	private String nomeUsuario;
+	private String senha;
 	GeneroMusical[] generosPreferidos;
 	
 	//Login

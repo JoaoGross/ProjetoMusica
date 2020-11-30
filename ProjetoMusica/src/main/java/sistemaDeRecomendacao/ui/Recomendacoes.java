@@ -22,7 +22,7 @@ public class Recomendacoes extends javax.swing.JFrame {
 			jTable1.setModel(new javax.swing.table.DefaultTableModel(
 					coteudoRecomendado(),
 					new String [] {
-							"Musicas", "nota"
+							"Músicas", "nota"
 					}) {
 				@Override
 				public boolean isCellEditable(int row, int column) {
@@ -56,7 +56,7 @@ public class Recomendacoes extends javax.swing.JFrame {
 
 		jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 		jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabel1.setText("Recomendacoes para voce");
+		jLabel1.setText("Recomendações para você");
 
 		BtVoltarTelaPrincipal3.setText("Voltar");
 		BtVoltarTelaPrincipal3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
